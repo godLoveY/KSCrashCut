@@ -562,12 +562,6 @@ static bool isRestrictedClass(const char* name)
  *
  * @param info Information about the nearest symbols to the address.
  */
-//add by yao
-#define KSCrashField_InstructionAddr       "instruction_addr"
-#define KSCrashField_ObjectAddr            "object_addr"
-#define KSCrashField_ObjectName            "object_name"
-#define KSCrashField_SymbolAddr            "symbol_addr"
-#define KSCrashField_SymbolName            "symbol_name"
 static void writeBacktraceEntry(const KSCrashReportWriter* const writer,
                                 const char* const key,
                                 const uintptr_t address,
@@ -776,6 +770,9 @@ static void writeThread(const KSCrashReportWriter* const writer,
                         const bool searchThreadNames,
                         const bool searchQueueNames)
 {
+    //add by yao
+    KSCrash_Context* context = writer->context;
+    
     bool isCrashedThread = thread == crash->offendingThread;
     char nameBuffer[128];
     STRUCT_MCONTEXT_L machineContextBuffer;
@@ -788,19 +785,31 @@ static void writeThread(const KSCrashReportWriter* const writer,
     uintptr_t* backtrace = getBacktrace(crash,
                                         thread,
                                         machineContext,
-                                        backtraceBuffer,
+                                        context->parseResult.backtraceBuffer,
                                         &backtraceLength,
                                         &skippedEntries);
+    context->parseResult.backtraceLength = backtraceLength;
 
 //    writer->beginObject(writer, key);
 //    {
         if(backtrace != NULL)
         {
-            writeBacktrace(writer,
-                           NULL,
-                           backtrace,
-                           backtraceLength,
-                           skippedEntries);
+            //add by yao
+            if(backtraceLength > 0)
+            {
+//                Dl_info symbolicated[backtraceLength];
+                ksbt_symbolicate(backtrace, context->parseResult.symbolicated, backtraceLength, skippedEntries);
+                
+//                for(int i = 0; i < backtraceLength; i++)
+//                {
+//                    writeBacktraceEntry(writer, NULL, backtrace[i], &symbolicated[i]);
+//                }
+            }
+//            writeBacktrace(writer,
+//                           NULL,
+//                           backtrace,
+//                           backtraceLength,
+//                           skippedEntries);
         }
 //        if(machineContext != NULL)
 //        {
@@ -841,7 +850,19 @@ static void writeThread(const KSCrashReportWriter* const writer,
 //    }
 //    writer->endContainer(writer);
 }
-
+/** Record whether the crashed thread had a stack overflow or not.
+ *
+ * @param crashContext the context.
+ */
+static void updateStackOverflowStatus(KSCrash_Context* const crashContext)
+{
+    // TODO: This feels weird. Shouldn't be mutating the context.
+    if(isStackOverflow(&crashContext->crash, crashContext->crash.offendingThread))
+    {
+        KSLOG_TRACE("Stack overflow detected.");
+        crashContext->crash.isStackOverflow = true;
+    }
+}
 /** Write information about all threads to the report.
  *
  * @param writer The writer.
@@ -857,6 +878,12 @@ void writeAllThreads(const KSCrashReportWriter* const writer,
                             bool searchThreadNames,
                             bool searchQueueNames)
 {
+    //add by yao
+    KSCrash_Context* context = writer->context;
+    g_introspectionRules = &context->config.introspectionRules;
+    updateStackOverflowStatus(context);
+    
+    
     const task_t thisTask = mach_task_self();
     thread_act_array_t threads;
     mach_msg_type_number_t numThreads;
@@ -1104,21 +1131,6 @@ static int threadIndex(const thread_t thread)
 
 
 
-
-
-/** Record whether the crashed thread had a stack overflow or not.
- *
- * @param crashContext the context.
- */
-static void updateStackOverflowStatus(KSCrash_Context* const crashContext)
-{
-    // TODO: This feels weird. Shouldn't be mutating the context.
-    if(isStackOverflow(&crashContext->crash, crashContext->crash.offendingThread))
-    {
-        KSLOG_TRACE("Stack overflow detected.");
-        crashContext->crash.isStackOverflow = true;
-    }
-}
 
 // ============================================================================
 #pragma mark - Main API -

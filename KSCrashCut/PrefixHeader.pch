@@ -28,7 +28,11 @@
 //#define KSLOGBASIC_INFO(fmt, ...) printf((fmt), ##__VA_ARGS__);
 
 
-
+#define KSCrashField_InstructionAddr       "instruction_addr"
+#define KSCrashField_ObjectAddr            "object_addr"
+#define KSCrashField_ObjectName            "object_name"
+#define KSCrashField_SymbolAddr            "symbol_addr"
+#define KSCrashField_SymbolName            "symbol_name"
 
 
 #endif /* PrefixHeader_pch */

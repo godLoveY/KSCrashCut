@@ -30,12 +30,12 @@
 #include "KSCrashSentry_Private.h"
 #include "KSCPU.h"
 #include "KSThread.h"
-#include "KSSystemCapabilities.h"
+//#include "KSSystemCapabilities.h"
 
 //#define KSLogger_LocalLevel TRACE
 //#include "KSLogger.h"
 
-#if KSCRASH_HAS_MACH
+#if 1//KSCRASH_HAS_MACH
 
 #include <mach/mach.h>
 #include <pthread.h>
@@ -247,7 +247,7 @@ static void* handleExceptions(void* const userData)
         KSLOG_ERROR("mach_msg: %s", mach_error_string(kr));
     }
 
-    KSLOG_DEBUG("Trapped mach exception code 0x%x, subcode 0x%x",
+    KSLOG_DEBUG("Trapped mach exception code 0x%llx, subcode 0x%llx",
                 exceptionMessage.code[0], exceptionMessage.code[1]);
     if(g_installed)
     {

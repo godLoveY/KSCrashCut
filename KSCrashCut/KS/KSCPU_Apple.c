@@ -27,7 +27,7 @@
 
 #include "KSCPU.h"
 
-#include "KSSystemCapabilities.h"
+//#include "KSSystemCapabilities.h"
 
 #include <mach/mach.h>
 #include <mach-o/arch.h>
@@ -42,7 +42,7 @@ const char* kscpu_currentArch(void)
     return archInfo == NULL ? NULL : archInfo->name;
 }
 
-#if KSCRASH_HAS_THREADS_API
+#if 1//KSCRASH_HAS_THREADS_API
 bool kscpu_i_fillState(const thread_t thread,
                        const thread_state_t state,
                        const thread_state_flavor_t flavor,

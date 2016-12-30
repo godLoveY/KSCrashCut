@@ -27,7 +27,7 @@
 
 #include "KSThread.h"
 
-#include "KSSystemCapabilities.h"
+//#include "KSSystemCapabilities.h"
 
 //#define KSLogger_LocalLevel TRACE
 //#include "KSLogger.h"
@@ -115,7 +115,7 @@ bool ksthread_getQueueName(const thread_t thread, char* const buffer, int bufLen
 #pragma mark - Utility -
 // ============================================================================
 
-#if KSCRASH_HAS_THREADS_API
+#if 1//KSCRASH_HAS_THREADS_API
 static inline bool isThreadInList(thread_t thread, thread_t* list, int listCount)
 {
     for(int i = 0; i < listCount; i++)
@@ -134,7 +134,7 @@ bool ksthread_suspendAllThreads(void)
     return ksthread_suspendAllThreadsExcept(NULL, 0);
 }
 
-#if KSCRASH_HAS_THREADS_API
+#if 1//KSCRASH_HAS_THREADS_API
 bool ksthread_suspendAllThreadsExcept(thread_t* exceptThreads, int exceptThreadsCount)
 {
     kern_return_t kr;
@@ -183,7 +183,7 @@ bool ksthread_resumeAllThreads(void)
     return ksthread_resumeAllThreadsExcept(NULL, 0);
 }
 
-#if KSCRASH_HAS_THREADS_API
+#if 1//KSCRASH_HAS_THREADS_API
 bool ksthread_resumeAllThreadsExcept(thread_t* exceptThreads, int exceptThreadsCount)
 {
     kern_return_t kr;

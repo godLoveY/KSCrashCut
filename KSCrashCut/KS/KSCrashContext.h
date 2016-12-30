@@ -43,6 +43,7 @@ extern "C" {
 //#include "KSCrashState.h"
 
 #include <stdbool.h>
+#include <dlfcn.h>
 
 typedef struct
 {
@@ -95,6 +96,14 @@ typedef struct
     KSReportWriteCallback onCrashNotify;
 } KSCrash_Configuration;
 
+//add by yao
+typedef struct
+{
+    uintptr_t backtraceBuffer[150];
+    Dl_info symbolicated[150];
+    int backtraceLength;
+} Crash_ParseResult;
+
 /** Contextual data used by the crash report writer.
  */
 typedef struct
@@ -102,6 +111,8 @@ typedef struct
     KSCrash_Configuration config;
 //    KSCrash_State state;
     KSCrash_SentryContext crash;
+    //add by yao
+    Crash_ParseResult parseResult;
 } KSCrash_Context;
 
 

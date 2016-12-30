@@ -28,10 +28,10 @@
 #include "KSCrashC.h"
 #include "KSCrashContext.h"//add by yao
 #include "KSCrashSentry.h"//add by yao
-#include "KSCrashSentry_Deadlock.h"//add by yao
+//#include "KSCrashSentry_Deadlock.h"//add by yao
 //#include "KSCrashReportWriter.h"
 
-//#include "KSCrashReport.h"
+#include "KSCrashReport.h"
 //#include "KSCrashReportStore.h"
 //#include "KSCrashSentry_Deadlock.h"
 //#include "KSCrashSentry_User.h"
@@ -91,32 +91,23 @@ static void onCrash(void)
 {
     KSLOG_DEBUG("Updating application state to note crash.");
 //    kscrashstate_notifyAppCrash();
-//
+
     KSCrash_Context* context = crashContext();
     
     KSCrashReportWriter concreteWriter;
     KSCrashReportWriter* writer = &concreteWriter;
     writer->context = context;
+    
+    writeAllThreads(writer,
+                    NULL,
+                    &context->crash,
+                    context->config.introspectionRules.enabled,
+                    context->config.searchThreadNames,
+                    context->config.searchQueueNames);
     if(context->config.onCrashNotify != NULL){
         
         context->config.onCrashNotify(writer);
     }
-    
-//    if(context->config.printTraceToStdout)
-//    {
-//        kscrashreport_logCrash(context);
-//    }
-//    char crashReportFilePath[KSFU_MAX_PATH_LENGTH];
-//    kscrs_getCrashReportPath(crashReportFilePath);
-//
-//    if(context->crash.crashedDuringCrashHandling)
-//    {
-//        kscrashreport_writeRecrashReport(context, crashReportFilePath);
-//    }
-//    else
-//    {
-//        kscrashreport_writeStandardReport(context, crashReportFilePath);
-//    }
 }
 
 
@@ -162,13 +153,13 @@ KSCrashType kscrash_setHandlingCrashTypes(KSCrashType crashTypes)
 void kscrash_setUserInfoJSON(const char* const userInfoJSON)
 {
     KSLOG_TRACE("set userInfoJSON to %p", userInfoJSON);
-    KSCrash_Context* context = crashContext();
+//    KSCrash_Context* context = crashContext();
 //    ksstring_replace(&context->config.userInfoJSON, userInfoJSON);
 }
 
 void kscrash_setDeadlockWatchdogInterval(double deadlockWatchdogInterval)
 {
-    kscrashsentry_setDeadlockHandlerWatchdogInterval(deadlockWatchdogInterval);
+//    kscrashsentry_setDeadlockHandlerWatchdogInterval(deadlockWatchdogInterval);
 }
 
 void kscrash_setPrintTraceToStdout(bool printTraceToStdout)

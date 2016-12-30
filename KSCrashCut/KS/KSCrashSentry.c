@@ -29,7 +29,7 @@
 #include "KSCrashSentry_Context.h"
 #include "KSCrashSentry_Private.h"
 
-#include "KSCrashSentry_Deadlock.h"
+//#include "KSCrashSentry_Deadlock.h"
 #include "KSCrashSentry_MachException.h"
 #include "KSCrashSentry_CPPException.h"
 #include "KSCrashSentry_NSException.h"
@@ -82,11 +82,11 @@ static CrashSentry g_sentries[] =
         kscrashsentry_installNSExceptionHandler,
         kscrashsentry_uninstallNSExceptionHandler,
     },
-    {
-        KSCrashTypeMainThreadDeadlock,
-        kscrashsentry_installDeadlockHandler,
-        kscrashsentry_uninstallDeadlockHandler,
-    },
+//    {
+//        KSCrashTypeMainThreadDeadlock,
+//        kscrashsentry_installDeadlockHandler,
+//        kscrashsentry_uninstallDeadlockHandler,
+//    },
 };
 static int g_sentriesCount = sizeof(g_sentries) / sizeof(*g_sentries);
 
