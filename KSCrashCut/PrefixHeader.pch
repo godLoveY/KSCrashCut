@@ -21,6 +21,12 @@
 #define KSLOG_INFO2(fmt, ...) printf((fmt), ##__VA_ARGS__);
 #define KSLOG_TRACE(fmt, ...) printf((fmt), ##__VA_ARGS__);
 #define KSLOGBASIC_WARN(fmt, ...) printf((fmt), ##__VA_ARGS__);
+#define KSLOGBASIC_INFO(fmt, ...) printf((fmt), ##__VA_ARGS__);
+
+
+#define KSLOGBASIC_ALWAYS(fmt, ...) printf((fmt), ##__VA_ARGS__);
+//#define KSLOGBASIC_INFO(fmt, ...) printf((fmt), ##__VA_ARGS__);
+
 
 
 

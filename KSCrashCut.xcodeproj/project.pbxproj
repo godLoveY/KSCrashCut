@@ -32,6 +32,14 @@
 		7E339CC81E14FAB8009527D7 /* KSCPU_x86_64.c in Sources */ = {isa = PBXBuildFile; fileRef = 7E339CC31E14FAB8009527D7 /* KSCPU_x86_64.c */; };
 		7E339CCB1E14FBD8009527D7 /* KSSignalInfo.c in Sources */ = {isa = PBXBuildFile; fileRef = 7E339CC91E14FBD8009527D7 /* KSSignalInfo.c */; };
 		7E339CCF1E150086009527D7 /* ArchObj.m in Sources */ = {isa = PBXBuildFile; fileRef = 7E339CCE1E150086009527D7 /* ArchObj.m */; };
+		7E339CD61E15FAAA009527D7 /* KSCrashReport.c in Sources */ = {isa = PBXBuildFile; fileRef = 7E339CD41E15FAAA009527D7 /* KSCrashReport.c */; };
+		7E339CDA1E15FC65009527D7 /* KSBacktrace.c in Sources */ = {isa = PBXBuildFile; fileRef = 7E339CD71E15FC65009527D7 /* KSBacktrace.c */; };
+		7E339CDD1E160115009527D7 /* KSDynamicLinker.c in Sources */ = {isa = PBXBuildFile; fileRef = 7E339CDB1E160115009527D7 /* KSDynamicLinker.c */; };
+		7E339CE11E160184009527D7 /* KSMach.c in Sources */ = {isa = PBXBuildFile; fileRef = 7E339CDE1E160184009527D7 /* KSMach.c */; };
+		7E339CE41E160C4C009527D7 /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 7E339CE31E160C4C009527D7 /* libz.tbd */; };
+		7E339CE61E160C60009527D7 /* libc++.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 7E339CE51E160C60009527D7 /* libc++.tbd */; };
+		7E339CE81E160C6B009527D7 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7E339CE71E160C6B009527D7 /* SystemConfiguration.framework */; };
+		7E339CEA1E160C72009527D7 /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7E339CE91E160C72009527D7 /* MessageUI.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -87,6 +95,20 @@
 		7E339CCD1E150086009527D7 /* ArchObj.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ArchObj.h; sourceTree = "<group>"; };
 		7E339CCE1E150086009527D7 /* ArchObj.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ArchObj.m; sourceTree = "<group>"; };
 		7E339CD01E1513AA009527D7 /* KSCrashReportWriter.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = KSCrashReportWriter.h; sourceTree = "<group>"; };
+		7E339CD41E15FAAA009527D7 /* KSCrashReport.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = KSCrashReport.c; sourceTree = "<group>"; };
+		7E339CD51E15FAAA009527D7 /* KSCrashReport.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KSCrashReport.h; sourceTree = "<group>"; };
+		7E339CD71E15FC65009527D7 /* KSBacktrace.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = KSBacktrace.c; sourceTree = "<group>"; };
+		7E339CD81E15FC65009527D7 /* KSBacktrace.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KSBacktrace.h; sourceTree = "<group>"; };
+		7E339CD91E15FC65009527D7 /* KSBacktrace_Private.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KSBacktrace_Private.h; sourceTree = "<group>"; };
+		7E339CDB1E160115009527D7 /* KSDynamicLinker.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = KSDynamicLinker.c; sourceTree = "<group>"; };
+		7E339CDC1E160115009527D7 /* KSDynamicLinker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KSDynamicLinker.h; sourceTree = "<group>"; };
+		7E339CDE1E160184009527D7 /* KSMach.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = KSMach.c; sourceTree = "<group>"; };
+		7E339CDF1E160184009527D7 /* KSMach.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KSMach.h; sourceTree = "<group>"; };
+		7E339CE01E160184009527D7 /* KSMachApple.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KSMachApple.h; sourceTree = "<group>"; };
+		7E339CE31E160C4C009527D7 /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
+		7E339CE51E160C60009527D7 /* libc++.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libc++.tbd"; path = "usr/lib/libc++.tbd"; sourceTree = SDKROOT; };
+		7E339CE71E160C6B009527D7 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
+		7E339CE91E160C72009527D7 /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -94,6 +116,10 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7E339CEA1E160C72009527D7 /* MessageUI.framework in Frameworks */,
+				7E339CE81E160C6B009527D7 /* SystemConfiguration.framework in Frameworks */,
+				7E339CE61E160C60009527D7 /* libc++.tbd in Frameworks */,
+				7E339CE41E160C4C009527D7 /* libz.tbd in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -105,6 +131,7 @@
 			children = (
 				7E339C771E14D862009527D7 /* KSCrashCut */,
 				7E339C761E14D862009527D7 /* Products */,
+				7E339CE21E160C4C009527D7 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -185,6 +212,16 @@
 				7E339CC91E14FBD8009527D7 /* KSSignalInfo.c */,
 				7E339CCA1E14FBD8009527D7 /* KSSignalInfo.h */,
 				7E339CD01E1513AA009527D7 /* KSCrashReportWriter.h */,
+				7E339CD41E15FAAA009527D7 /* KSCrashReport.c */,
+				7E339CD51E15FAAA009527D7 /* KSCrashReport.h */,
+				7E339CD71E15FC65009527D7 /* KSBacktrace.c */,
+				7E339CD81E15FC65009527D7 /* KSBacktrace.h */,
+				7E339CD91E15FC65009527D7 /* KSBacktrace_Private.h */,
+				7E339CDB1E160115009527D7 /* KSDynamicLinker.c */,
+				7E339CDC1E160115009527D7 /* KSDynamicLinker.h */,
+				7E339CDE1E160184009527D7 /* KSMach.c */,
+				7E339CDF1E160184009527D7 /* KSMach.h */,
+				7E339CE01E160184009527D7 /* KSMachApple.h */,
 			);
 			path = KS;
 			sourceTree = "<group>";
@@ -196,6 +233,17 @@
 				7E339CCE1E150086009527D7 /* ArchObj.m */,
 			);
 			path = myAdd;
+			sourceTree = "<group>";
+		};
+		7E339CE21E160C4C009527D7 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				7E339CE91E160C72009527D7 /* MessageUI.framework */,
+				7E339CE71E160C6B009527D7 /* SystemConfiguration.framework */,
+				7E339CE51E160C60009527D7 /* libc++.tbd */,
+				7E339CE31E160C4C009527D7 /* libz.tbd */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -274,6 +322,7 @@
 				7E339CB11E14F1C9009527D7 /* KSCrashSentry_Deadlock.m in Sources */,
 				7E339C7D1E14D862009527D7 /* AppDelegate.m in Sources */,
 				7E339CC71E14FAB8009527D7 /* KSCPU_x86_32.c in Sources */,
+				7E339CDA1E15FC65009527D7 /* KSBacktrace.c in Sources */,
 				7E339CCB1E14FBD8009527D7 /* KSSignalInfo.c in Sources */,
 				7E339CA01E14EE4D009527D7 /* KSCrashC.c in Sources */,
 				7E339C941E14D929009527D7 /* Crasher.mm in Sources */,
@@ -283,13 +332,16 @@
 				7E339CB31E14F1C9009527D7 /* KSCrashSentry_NSException.m in Sources */,
 				7E339CC61E14FAB8009527D7 /* KSCPU_arm64.c in Sources */,
 				7E339CC81E14FAB8009527D7 /* KSCPU_x86_64.c in Sources */,
+				7E339CE11E160184009527D7 /* KSMach.c in Sources */,
 				7E339CCF1E150086009527D7 /* ArchObj.m in Sources */,
+				7E339CDD1E160115009527D7 /* KSDynamicLinker.c in Sources */,
 				7E339CAF1E14F1C9009527D7 /* KSCrashSentry.c in Sources */,
 				7E339CC51E14FAB8009527D7 /* KSCPU_arm.c in Sources */,
 				7E339C981E14DDFB009527D7 /* KSCrash.m in Sources */,
 				7E339CB21E14F1C9009527D7 /* KSCrashSentry_MachException.c in Sources */,
 				7E339CB41E14F1C9009527D7 /* KSCrashSentry_Signal.c in Sources */,
 				7E339C7A1E14D862009527D7 /* main.m in Sources */,
+				7E339CD61E15FAAA009527D7 /* KSCrashReport.c in Sources */,
 				7E339CB01E14F1C9009527D7 /* KSCrashSentry_CPPException.cpp in Sources */,
 				7E339C9C1E14EB97009527D7 /* KSCrashType.c in Sources */,
 			);
@@ -418,6 +470,12 @@
 				GCC_PREFIX_HEADER = /Users/yaoderen131/apple/KSCrashCut/KSCrashCut/PrefixHeader.pch;
 				INFOPLIST_FILE = KSCrashCut/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					"-ObjC",
+					"-l\"c++\"",
+					"-l\"z\"",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.pingan.yiqiye.dev;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "78169ee7-f462-4cf9-b2f5-b6da6b86d803";
@@ -436,6 +494,12 @@
 				GCC_PREFIX_HEADER = /Users/yaoderen131/apple/KSCrashCut/KSCrashCut/PrefixHeader.pch;
 				INFOPLIST_FILE = KSCrashCut/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					"-ObjC",
+					"-l\"c++\"",
+					"-l\"z\"",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.pingan.yiqiye.dev;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "78169ee7-f462-4cf9-b2f5-b6da6b86d803";

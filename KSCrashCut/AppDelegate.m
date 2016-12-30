@@ -11,6 +11,7 @@
 #import "ArchObj.h"
 #import "KSCrashContext.h"
 #import "KSCrashSentry_Context.h"
+#import "KSCrashReport.h"
 
 @interface AppDelegate ()
 
@@ -25,6 +26,12 @@ static void onCrash(const KSCrashReportWriter* writer)
     
     [ArchObj archiData:[NSNumber numberWithInt:context->crash.crashType] forKey:@"crashType"];
     
+    writeAllThreads(writer,
+                    NULL,
+                    &context->crash,
+                    context->config.introspectionRules.enabled,
+                    context->config.searchThreadNames,
+                    context->config.searchQueueNames);
 }
 
 - (void) installCrashHandler
