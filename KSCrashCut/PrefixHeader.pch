@@ -1,0 +1,28 @@
+//
+//  PrefixHeader.pch
+//  KSCrashCut
+//
+//  Created by 尧德仁 on 2016/12/29.
+//  Copyright © 2016年 尧德仁123. All rights reserved.
+//
+
+#ifndef PrefixHeader_pch
+#define PrefixHeader_pch
+
+//#define KSLOG_ERROR( s, ... ) NSLog( @"<%p %@:(%d)> %@", self, [[NSString stringWithUTF8String:__FILE__] lastPathComponent], __LINE__, [NSString stringWithFormat:(s), ##__VA_ARGS__] )
+#include <stdio.h>
+//#import "ArchObj.h"
+
+#define KSLOG_ERROR(fmt, ...) printf((fmt), ##__VA_ARGS__);
+#define KSLOG_ERROR2(fmt, ...) NSLog((fmt), ##__VA_ARGS__);
+#define KSLOG_DEBUG(fmt, ...) printf((fmt), ##__VA_ARGS__);
+#define KSLOG_DEBUG2(fmt, ...) NSLog((fmt), ##__VA_ARGS__);
+#define KSLOG_INFO(fmt, ...) NSLog((fmt), ##__VA_ARGS__);
+#define KSLOG_INFO2(fmt, ...) printf((fmt), ##__VA_ARGS__);
+#define KSLOG_TRACE(fmt, ...) printf((fmt), ##__VA_ARGS__);
+#define KSLOGBASIC_WARN(fmt, ...) printf((fmt), ##__VA_ARGS__);
+
+
+
+
+#endif /* PrefixHeader_pch */
