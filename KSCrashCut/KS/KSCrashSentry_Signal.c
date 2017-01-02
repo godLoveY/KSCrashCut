@@ -111,7 +111,7 @@ static void handleSignal(int sigNum, siginfo_t* signalInfo, void* userContext)
         g_context->signal.signalInfo = signalInfo;
 
 
-        KSLOG_DEBUG("Calling main crash handler.");
+        KSLOG_DEBUG("Calling main crash handler.=signal");
         g_context->onCrash();
 
 

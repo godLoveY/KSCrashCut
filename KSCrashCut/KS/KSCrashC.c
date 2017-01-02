@@ -98,14 +98,21 @@ static void onCrash(void)
     KSCrashReportWriter* writer = &concreteWriter;
     writer->context = context;
     
-    writeAllThreads(writer,
-                    NULL,
-                    &context->crash,
-                    context->config.introspectionRules.enabled,
-                    context->config.searchThreadNames,
-                    context->config.searchQueueNames);
-    if(context->config.onCrashNotify != NULL){
+    
+    if(context->crash.crashedDuringCrashHandling){
+    
         
+    }else{
+        writeAllThreads(writer,
+                        NULL,
+                        &context->crash,
+                        context->config.introspectionRules.enabled,
+                        context->config.searchThreadNames,
+                        context->config.searchQueueNames);
+    }
+    
+    if(context->config.onCrashNotify != NULL){
+        //回调函数
         context->config.onCrashNotify(writer);
     }
 }
@@ -131,10 +138,56 @@ KSCrashType kscrash_install(const char* appName, const char* const installPath)
     KSCrashType crashTypes = kscrash_setHandlingCrashTypes(context->config.handlingCrashTypes);
 
 
+    kscrash_reinstall();
+    
+//    context->config.processName = kssysteminfo_copyProcessName();
     KSLOG_DEBUG("Installation complete.");
     return crashTypes;
 }
-
+void ksstring_replace(const char** dest, const char* replacement)
+{
+    if(*dest != NULL)
+    {
+        free((void*)*dest);
+    }
+    if(replacement == NULL)
+    {
+        *dest = NULL;
+    }
+    else
+    {
+        *dest = strdup(replacement);
+    }
+}
+void kscrash_reinstall()
+{
+    uuid_t uuid;
+    uuid_generate(uuid);
+    static char crashID[37];
+    sprintf(crashID, "%02X%02X%02X%02X-%02X%02X-%02X%02X-%02X%02X-%02X%02X%02X%02X%02X%02X",
+            (unsigned)uuid[0],
+            (unsigned)uuid[1],
+            (unsigned)uuid[2],
+            (unsigned)uuid[3],
+            (unsigned)uuid[4],
+            (unsigned)uuid[5],
+            (unsigned)uuid[6],
+            (unsigned)uuid[7],
+            (unsigned)uuid[8],
+            (unsigned)uuid[9],
+            (unsigned)uuid[10],
+            (unsigned)uuid[11],
+            (unsigned)uuid[12],
+            (unsigned)uuid[13],
+            (unsigned)uuid[14],
+            (unsigned)uuid[15]
+            );
+    KSCrash_Context* context = crashContext();
+    ksstring_replace(&context->config.crashID, crashID);
+    KSLOG_TRACE("crashID = %s", crashID);
+    
+//    kscrashstate_reset();
+}
 
 KSCrashType kscrash_setHandlingCrashTypes(KSCrashType crashTypes)
 {

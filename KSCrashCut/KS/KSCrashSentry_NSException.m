@@ -99,7 +99,7 @@ static void handleException(NSException* exception)
         g_context->stackTraceLength = (int)numFrames;
 
 
-        KSLOG_DEBUG2(@"Calling main crash handler.");
+        KSLOG_DEBUG2(@"Calling main crash handler.nsexception");
         g_context->onCrash();
 
 

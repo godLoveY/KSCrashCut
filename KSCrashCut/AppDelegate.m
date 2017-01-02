@@ -30,23 +30,31 @@ const char* ksfu_lastPathEntry2(const char* const path)
 static void onCrash(const KSCrashReportWriter* writer)
 {
     KSCrash_Context* context = writer->context;
-    NSLog(@"type = %d",context->crash.crashType);
     
+    NSTimeInterval dt = [[NSDate date] timeIntervalSince1970];
+    [ArchObj archiData:[NSNumber numberWithLong:dt] forKey:@"time"];
     [ArchObj archiData:[NSNumber numberWithInt:context->crash.crashType] forKey:@"crashType"];
+    NSLog(@"add_by_yao_type = %d,time = %f,count = %d",context->crash.crashType,dt,context->parseResult.backtraceLength);
+    
     
     NSMutableDictionary *resDic = [[NSMutableDictionary alloc]initWithCapacity:11];
     NSMutableArray *arr = [[NSMutableArray alloc]initWithCapacity:11];
-    for (int i = 0; i<context->parseResult.backtraceLength; i++) {
+
+    int aaa = 0;
+    for (int i = 0; i<context->parseResult.backtraceLength-aaa; i++) {
         const Dl_info* const info = &context->parseResult.symbolicated[i];
-        NSString *objName = NULL;
-        NSString *symName = NULL;
+        id objName = [NSNull null];//否则可能出错
+        id symName = [NSNull null];
         if(info->dli_fname != NULL){
             objName = [NSString stringWithUTF8String:ksfu_lastPathEntry2(info->dli_fname)];
+            if (objName==NULL) {
+            }
         }
         if(info->dli_sname != NULL){
             symName = [NSString stringWithUTF8String:info->dli_sname];
+            if (symName==NULL) {
+            }
         }
-        
         NSDictionary *tmpDic = @{
                                  @KSCrashField_InstructionAddr:[NSNumber numberWithUnsignedLong:context->parseResult.backtraceBuffer[i]],
                                   @KSCrashField_ObjectAddr:[NSNumber numberWithUnsignedLong:(uintptr_t)info->dli_fbase],
@@ -58,8 +66,6 @@ static void onCrash(const KSCrashReportWriter* writer)
     }
     [resDic setValue:arr forKey:@"contents"];
     [ArchObj archiData:resDic forKey:@"resDic"];
-    NSTimeInterval dt = [[NSDate date] timeIntervalSince1970];
-    [ArchObj archiData:[NSNumber numberWithLong:dt] forKey:@"time"];
 }
 
 - (void) installCrashHandler

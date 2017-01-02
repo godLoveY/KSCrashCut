@@ -309,7 +309,7 @@ static void* handleExceptions(void* const userData)
         g_context->mach.subcode = exceptionMessage.code[1];
 
 
-        KSLOG_DEBUG("Calling main crash handler.");
+        KSLOG_DEBUG("Calling main crash handler.=mach");
         g_context->onCrash();
 
 
@@ -447,6 +447,7 @@ bool kscrashsentry_installMachHandler(KSCrash_SentryContext* const context)
     context->reservedThreads[KSCrashReservedThreadTypeMachPrimary] = g_primaryMachThread;
 
     KSLOG_DEBUG("Mach exception handler installed.");
+    
     return true;
 
 

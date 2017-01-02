@@ -169,7 +169,7 @@ catch(TYPE value)\
         g_context->CPPException.name = name;
         g_context->crashReason = description;
 
-        KSLOG_DEBUG("Calling main crash handler.");
+        KSLOG_DEBUG("Calling main crash handler=c++");
         g_context->onCrash();
 
         KSLOG_DEBUG("Crash handling complete. Restoring original handlers.");
