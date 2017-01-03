@@ -75,7 +75,7 @@ bool ksthread_getQueueName(const thread_t thread, char* const buffer, int bufLen
     //identifier_info->dispatch_qaddr =  identifier_info->thread_handle + get_dispatchqueue_offset_from_proc(thread->task->bsd_info);
     if(dispatch_queue_ptr == NULL || idInfo->thread_handle == 0 || *dispatch_queue_ptr == NULL)
     {
-        KSLOG_TRACE("This thread doesn't have a dispatch queue attached : %p", thread);
+//        KSLOG_TRACE("This thread doesn't have a dispatch queue attached : %p", thread);
         return false;
     }
     

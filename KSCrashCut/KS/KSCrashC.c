@@ -66,7 +66,7 @@ static KSCrash_Context g_crashReportContext =
     }
 };
 
-static char* g_logFilePath;
+//static char* g_logFilePath;
 
 
 // ============================================================================
@@ -103,14 +103,19 @@ static void onCrash(void)
     
         
     }else{
+//        writeAllThreads(writer,
+//                        NULL,
+//                        &context->crash,
+//                        context->config.introspectionRules.enabled,
+//                        context->config.searchThreadNames,
+//                        context->config.searchQueueNames);
         writeAllThreads(writer,
                         NULL,
                         &context->crash,
-                        context->config.introspectionRules.enabled,
-                        context->config.searchThreadNames,
-                        context->config.searchQueueNames);
+                        0,
+                        0,
+                        0);
     }
-    
     if(context->config.onCrashNotify != NULL){
         //回调函数
         context->config.onCrashNotify(writer);
@@ -202,7 +207,7 @@ KSCrashType kscrash_setHandlingCrashTypes(KSCrashType crashTypes)
 
     return crashTypes;
 }
-
+/*
 void kscrash_setUserInfoJSON(const char* const userInfoJSON)
 {
     KSLOG_TRACE("set userInfoJSON to %p", userInfoJSON);
@@ -274,8 +279,8 @@ void kscrash_setDoNotIntrospectClasses(const char** doNotIntrospectClasses, int 
         }
         free(oldClasses);
     }
-}
-
+}*/
+//设置回调函数
 void kscrash_setCrashNotifyCallback(const KSReportWriteCallback onCrashNotify)
 {
     KSLOG_TRACE("Set onCrashNotify to %p", onCrashNotify);

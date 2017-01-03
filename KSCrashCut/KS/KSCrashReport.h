@@ -54,8 +54,8 @@ void writeAllThreads(const KSCrashReportWriter* const writer,
  *
  * @param path The file to write to.
  */
-void kscrashreport_writeStandardReport(KSCrash_Context* crashContext,
-                                       const char* path);
+//void kscrashreport_writeStandardReport(KSCrash_Context* crashContext,
+//                                       const char* path);
 
 /** Write a minimal crash report to a file.
  *
@@ -64,15 +64,15 @@ void kscrashreport_writeStandardReport(KSCrash_Context* crashContext,
  *
  * @param path The file to write to.
  */
-void kscrashreport_writeRecrashReport(KSCrash_Context* const crashContext,
-                                      const char* path);
+//void kscrashreport_writeRecrashReport(KSCrash_Context* const crashContext,
+//                                      const char* path);
 
 /** Write minimal information about the crash to the log.
  *
  * @param crashContext Contextual information about the crash and environment.
  *                     The caller must fill this out before passing it in.
  */
-void kscrashreport_logCrash(const KSCrash_Context* const crashContext);
+//void kscrashreport_logCrash(const KSCrash_Context* const crashContext);
 
 
 #ifdef __cplusplus

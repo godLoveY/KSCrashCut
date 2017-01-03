@@ -49,41 +49,41 @@
 
 @interface KSCrash ()
 
-@property(nonatomic,readwrite,retain) NSString* bundleName;
-@property(nonatomic,readwrite,retain) NSString* basePath;
+//@property(nonatomic,readwrite,retain) NSString* bundleName;
+//@property(nonatomic,readwrite,retain) NSString* basePath;
 
 @end
 
 
-static NSString* getBundleName()
-{
-    NSString* bundleName = [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleName"];
-    if(bundleName == nil)
-    {
-        bundleName = @"Unknown";
-    }
-    return bundleName;
-}
-
-static NSString* getBasePath()
-{
-    NSArray* directories = NSSearchPathForDirectoriesInDomains(NSCachesDirectory,
-                                                               NSUserDomainMask,
-                                                               YES);
-    if([directories count] == 0)
-    {
-        KSLOG_ERROR2(@"Could not locate cache directory path.");
-        return nil;
-    }
-    NSString* cachePath = [directories objectAtIndex:0];
-    if([cachePath length] == 0)
-    {
-        KSLOG_ERROR2(@"Could not locate cache directory path.");
-        return nil;
-    }
-    NSString* pathEnd = [@"KSCrash" stringByAppendingPathComponent:getBundleName()];
-    return [cachePath stringByAppendingPathComponent:pathEnd];
-}
+//static NSString* getBundleName()
+//{
+//    NSString* bundleName = [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleName"];
+//    if(bundleName == nil)
+//    {
+//        bundleName = @"Unknown";
+//    }
+//    return bundleName;
+//}
+//
+//static NSString* getBasePath()
+//{
+//    NSArray* directories = NSSearchPathForDirectoriesInDomains(NSCachesDirectory,
+//                                                               NSUserDomainMask,
+//                                                               YES);
+//    if([directories count] == 0)
+//    {
+//        KSLOG_ERROR2(@"Could not locate cache directory path.");
+//        return nil;
+//    }
+//    NSString* cachePath = [directories objectAtIndex:0];
+//    if([cachePath length] == 0)
+//    {
+//        KSLOG_ERROR2(@"Could not locate cache directory path.");
+//        return nil;
+//    }
+//    NSString* pathEnd = [@"KSCrash" stringByAppendingPathComponent:getBundleName()];
+//    return [cachePath stringByAppendingPathComponent:pathEnd];
+//}
 
 
 @implementation KSCrash
@@ -93,21 +93,21 @@ static NSString* getBasePath()
 // ============================================================================
 
 //@synthesize sink = _sink;
-@synthesize userInfo = _userInfo;
-@synthesize deleteBehaviorAfterSendAll = _deleteBehaviorAfterSendAll;
+//@synthesize userInfo = _userInfo;
+//@synthesize deleteBehaviorAfterSendAll = _deleteBehaviorAfterSendAll;
 @synthesize handlingCrashTypes = _handlingCrashTypes;
-@synthesize deadlockWatchdogInterval = _deadlockWatchdogInterval;
-@synthesize printTraceToStdout = _printTraceToStdout;
+//@synthesize deadlockWatchdogInterval = _deadlockWatchdogInterval;
+//@synthesize printTraceToStdout = _printTraceToStdout;
 @synthesize onCrash = _onCrash;
-@synthesize bundleName = _bundleName;
-@synthesize basePath = _basePath;
-@synthesize searchThreadNames = _searchThreadNames;
-@synthesize searchQueueNames = _searchQueueNames;
-@synthesize introspectMemory = _introspectMemory;
-@synthesize catchZombies = _catchZombies;
-@synthesize doNotIntrospectClasses = _doNotIntrospectClasses;
-@synthesize demangleLanguages = _demangleLanguages;
-@synthesize redirectConsoleLogToFile = _redirectConsoleLogToFile;
+//@synthesize bundleName = _bundleName;
+//@synthesize basePath = _basePath;
+//@synthesize searchThreadNames = _searchThreadNames;
+//@synthesize searchQueueNames = _searchQueueNames;
+//@synthesize introspectMemory = _introspectMemory;
+//@synthesize catchZombies = _catchZombies;
+//@synthesize doNotIntrospectClasses = _doNotIntrospectClasses;
+//@synthesize demangleLanguages = _demangleLanguages;
+//@synthesize redirectConsoleLogToFile = _redirectConsoleLogToFile;
 
 
 // ============================================================================
@@ -129,13 +129,13 @@ static NSString* getBasePath()
 {
     if((self = [super init]))
     {
-        self.bundleName = getBundleName();
-        self.basePath = getBasePath();
-        if(self.basePath == nil)
-        {
-            KSLOG_ERROR2(@"Failed to initialize crash handler. Crash reporting disabled.");
-            return nil;
-        }
+//        self.bundleName = getBundleName();
+//        self.basePath = getBasePath();
+//        if(self.basePath == nil)
+//        {
+//            KSLOG_ERROR2(@"Failed to initialize crash handler. Crash reporting disabled.");
+//            return nil;
+//        }
     }
     return self;
 }
@@ -148,8 +148,9 @@ static NSString* getBasePath()
 
 - (BOOL) install
 {
-    _handlingCrashTypes = kscrash_install(self.bundleName.UTF8String,
-                                          self.basePath.UTF8String);
+//    _handlingCrashTypes = kscrash_install(self.bundleName.UTF8String,
+//                                          self.basePath.UTF8String);
+    _handlingCrashTypes = kscrash_install("","");
     if(self.handlingCrashTypes == 0)
     {
         return false;
@@ -160,8 +161,8 @@ static NSString* getBasePath()
 @end
 
 
-//! Project version number for KSCrashFramework.
-const double KSCrashFrameworkVersionNumber = 1.112;
-
-//! Project version string for KSCrashFramework.
-const unsigned char KSCrashFrameworkVersionString[] = "1.11.2";
+////! Project version number for KSCrashFramework.
+//const double KSCrashFrameworkVersionNumber = 1.112;
+//
+////! Project version string for KSCrashFramework.
+//const unsigned char KSCrashFrameworkVersionString[] = "1.11.2";

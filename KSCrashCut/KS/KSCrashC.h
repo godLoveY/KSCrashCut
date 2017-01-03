@@ -75,7 +75,7 @@ void kscrash_reinstall();
  * @param userInfoJSON Pre-baked JSON containing user-supplied information.
  *                     NULL = delete.
  */
-void kscrash_setUserInfoJSON(const char* const userInfoJSON);
+//void kscrash_setUserInfoJSON(const char* const userInfoJSON);
 
 /** Set the maximum time to allow the main thread to run without returning.
  * If a task occupies the main thread for longer than this interval, the
@@ -92,25 +92,25 @@ void kscrash_setUserInfoJSON(const char* const userInfoJSON);
  *
  * Default: 0
  */
-void kscrash_setDeadlockWatchdogInterval(double deadlockWatchdogInterval);
+//void kscrash_setDeadlockWatchdogInterval(double deadlockWatchdogInterval);
 
 /** Set whether or not to print a stack trace to stdout when a crash occurs.
  *
  * Default: false
  */
-void kscrash_setPrintTraceToStdout(bool printTraceToStdout);
+//void kscrash_setPrintTraceToStdout(bool printTraceToStdout);
 
 /** If true, search for thread names where appropriate.
  * Thread name searching is not async-safe, and so comes with the risk of
  * timing out and panicking in thread_lock().
  */
-void kscrash_setSearchThreadNames(bool shouldSearchThreadNames);
+//void kscrash_setSearchThreadNames(bool shouldSearchThreadNames);
 
 /** If true, search for dispatch queue names where appropriate.
 * Queue name searching is not async-safe, and so comes with the risk of
 * timing out and panicking in thread_lock().
 */
-void kscrash_setSearchQueueNames(bool shouldSearchQueueNames);
+//void kscrash_setSearchQueueNames(bool shouldSearchQueueNames);
 
 /** If true, introspect memory contents during a crash.
  * Any Objective-C objects or C strings near the stack pointer or referenced by
@@ -119,14 +119,14 @@ void kscrash_setSearchQueueNames(bool shouldSearchQueueNames);
  *
  * Default: false
  */
-void kscrash_setIntrospectMemory(bool introspectMemory);
+//void kscrash_setIntrospectMemory(bool introspectMemory);
 
 /** If true, monitor all Objective-C/Swift deallocations and keep track of any
  * accesses after deallocation.
  *
  * Default: false
  */
-void kscrash_setCatchZombies(bool catchZombies);
+//void kscrash_setCatchZombies(bool catchZombies);
 
 /** List of Objective-C classes that should never be introspected.
  * Whenever a class in this list is encountered, only the class name will be recorded.
@@ -134,7 +134,7 @@ void kscrash_setCatchZombies(bool catchZombies);
  *
  * Default: NULL
  */
-void kscrash_setDoNotIntrospectClasses(const char** doNotIntrospectClasses, int length);
+//void kscrash_setDoNotIntrospectClasses(const char** doNotIntrospectClasses, int length);
 
 /** Set the callback to invoke upon a crash.
  *
@@ -154,7 +154,7 @@ void kscrash_setCrashNotifyCallback(const KSReportWriteCallback onCrashNotify);
  *
  * @param shouldRedirectToFile If true, redirect to a file.
  */
-void kscrash_setRedirectConsoleLogToFile(bool shouldRedirectToFile);
+//void kscrash_setRedirectConsoleLogToFile(bool shouldRedirectToFile);
 
 /** Report a custom, user defined exception.
  * This can be useful when dealing with scripting languages.
@@ -175,12 +175,12 @@ void kscrash_setRedirectConsoleLogToFile(bool shouldRedirectToFile);
  *
  * @param terminateProgram If true, do not return from this function call. Terminate the program instead.
  */
-void kscrash_reportUserException(const char* name,
-                                 const char* reason,
-                                 const char* language,
-                                 const char* lineOfCode,
-                                 const char* stackTrace,
-                                 bool terminateProgram);
+//void kscrash_reportUserException(const char* name,
+//                                 const char* reason,
+//                                 const char* language,
+//                                 const char* lineOfCode,
+//                                 const char* stackTrace,
+//                                 bool terminateProgram);
 
 #ifdef __cplusplus
 }

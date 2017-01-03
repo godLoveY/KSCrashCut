@@ -120,28 +120,28 @@
 #define getJsonContext(REPORT_WRITER) ((KSJSONEncodeContext*)((REPORT_WRITER)->context))
 
 /** Used for writing hex string values. */
-static const char g_hexNybbles[] =
-{
-    '0', '1', '2', '3', '4', '5', '6', '7',
-    '8', '9', 'A', 'B', 'C', 'D', 'E', 'F'
-};
+//static const char g_hexNybbles[] =
+//{
+//    '0', '1', '2', '3', '4', '5', '6', '7',
+//    '8', '9', 'A', 'B', 'C', 'D', 'E', 'F'
+//};
 
 // ============================================================================
 #pragma mark - Runtime Config -
 // ============================================================================
 
-static KSCrash_IntrospectionRules* g_introspectionRules;
+//static KSCrash_IntrospectionRules* g_introspectionRules;
 
 
 #pragma mark Callbacks
  
-typedef struct
-{
-    char buffer[1024];
-    int length;
-    int position;
-    int fd;
-} BufferedWriter;
+//typedef struct
+//{
+//    char buffer[1024];
+//    int length;
+//    int position;
+//    int fd;
+//} BufferedWriter;
 
 
 
@@ -336,56 +336,56 @@ static bool isStackOverflow(const KSCrash_SentryContext* const crash,
  *
  * @param sentryContext The crash sentry context.
  */
-static void logCrashType(const KSCrash_SentryContext* const sentryContext)
-{
-    switch(sentryContext->crashType)
-    {
-        case KSCrashTypeMachException:
-        {
-            int machExceptionType = sentryContext->mach.type;
-            kern_return_t machCode = (kern_return_t)sentryContext->mach.code;
-            const char* machExceptionName = ksmach_exceptionName(machExceptionType);
-            const char* machCodeName = machCode == 0 ? NULL : ksmach_kernelReturnCodeName(machCode);
-            KSLOGBASIC_INFO("App crashed due to mach exception: [%s: %s] at %p",
-                            machExceptionName, machCodeName, sentryContext->faultAddress);
-            break;
-        }
-        case KSCrashTypeCPPException:
-        {
-            KSLOG_INFO2("App crashed due to C++ exception: %s: %s",
-                       sentryContext->CPPException.name,
-                       sentryContext->crashReason);
-            break;
-        }
-        case KSCrashTypeNSException:
-        {
-            KSLOGBASIC_INFO("App crashed due to NSException: %s: %s",
-                            sentryContext->NSException.name,
-                            sentryContext->crashReason);
-            break;
-        }
-        case KSCrashTypeSignal:
-        {
-            int sigNum = sentryContext->signal.signalInfo->si_signo;
-            int sigCode = sentryContext->signal.signalInfo->si_code;
-            const char* sigName = kssignal_signalName(sigNum);
-            const char* sigCodeName = kssignal_signalCodeName(sigNum, sigCode);
-            KSLOGBASIC_INFO("App crashed due to signal: [%s, %s] at %08x",
-                            sigName, sigCodeName, sentryContext->faultAddress);
-            break;
-        }
-        case KSCrashTypeMainThreadDeadlock:
-        {
-            KSLOGBASIC_INFO("Main thread deadlocked");
-            break;
-        }
-        case KSCrashTypeUserReported:
-        {
-            KSLOG_INFO2("App crashed due to user specified exception: %s", sentryContext->crashReason);
-            break;
-        }
-    }
-}
+//static void logCrashType(const KSCrash_SentryContext* const sentryContext)
+//{
+//    switch(sentryContext->crashType)
+//    {
+//        case KSCrashTypeMachException:
+//        {
+//            int machExceptionType = sentryContext->mach.type;
+//            kern_return_t machCode = (kern_return_t)sentryContext->mach.code;
+//            const char* machExceptionName = ksmach_exceptionName(machExceptionType);
+//            const char* machCodeName = machCode == 0 ? NULL : ksmach_kernelReturnCodeName(machCode);
+//            KSLOGBASIC_INFO("App crashed due to mach exception: [%s: %s] at %p",
+//                            machExceptionName, machCodeName, sentryContext->faultAddress);
+//            break;
+//        }
+//        case KSCrashTypeCPPException:
+//        {
+//            KSLOG_INFO2("App crashed due to C++ exception: %s: %s",
+//                       sentryContext->CPPException.name,
+//                       sentryContext->crashReason);
+//            break;
+//        }
+//        case KSCrashTypeNSException:
+//        {
+//            KSLOGBASIC_INFO("App crashed due to NSException: %s: %s",
+//                            sentryContext->NSException.name,
+//                            sentryContext->crashReason);
+//            break;
+//        }
+//        case KSCrashTypeSignal:
+//        {
+//            int sigNum = sentryContext->signal.signalInfo->si_signo;
+//            int sigCode = sentryContext->signal.signalInfo->si_code;
+//            const char* sigName = kssignal_signalName(sigNum);
+//            const char* sigCodeName = kssignal_signalCodeName(sigNum, sigCode);
+//            KSLOGBASIC_INFO("App crashed due to signal: [%s, %s] at %08x",
+//                            sigName, sigCodeName, sentryContext->faultAddress);
+//            break;
+//        }
+//        case KSCrashTypeMainThreadDeadlock:
+//        {
+//            KSLOGBASIC_INFO("Main thread deadlocked");
+//            break;
+//        }
+//        case KSCrashTypeUserReported:
+//        {
+//            KSLOG_INFO2("App crashed due to user specified exception: %s", sentryContext->crashReason);
+//            break;
+//        }
+//    }
+//}
 
 /** Print a backtrace entry in the standard format to the log.
  *
@@ -396,39 +396,39 @@ static void logCrashType(const KSCrash_SentryContext* const sentryContext)
  * @param dlInfo Information about the nearest symbols to the address.
  */
 //add by yao
-const char* ksfu_lastPathEntry(const char* const path)
-{
-    if(path == NULL)
-    {
-        return NULL;
-    }
-    
-    char* lastFile = strrchr(path, '/');
-    return lastFile == NULL ? path : lastFile + 1;
-}
-static void logBacktraceEntry(const int entryNum, const uintptr_t address, const Dl_info* const dlInfo)
-{
-    char faddrBuff[20];
-    char saddrBuff[20];
-
-    const char* fname = ksfu_lastPathEntry(dlInfo->dli_fname);
-    if(fname == NULL)
-    {
-        sprintf(faddrBuff, POINTER_FMT, (uintptr_t)dlInfo->dli_fbase);
-        fname = faddrBuff;
-    }
-
-    uintptr_t offset = address - (uintptr_t)dlInfo->dli_saddr;
-    const char* sname = dlInfo->dli_sname;
-    if(sname == NULL)
-    {
-        sprintf(saddrBuff, POINTER_SHORT_FMT, (uintptr_t)dlInfo->dli_fbase);
-        sname = saddrBuff;
-        offset = address - (uintptr_t)dlInfo->dli_fbase;
-    }
-
-    KSLOGBASIC_ALWAYS(TRACE_FMT, entryNum, fname, address, sname, offset);
-}
+//const char* ksfu_lastPathEntry(const char* const path)
+//{
+//    if(path == NULL)
+//    {
+//        return NULL;
+//    }
+//    
+//    char* lastFile = strrchr(path, '/');
+//    return lastFile == NULL ? path : lastFile + 1;
+//}
+//static void logBacktraceEntry(const int entryNum, const uintptr_t address, const Dl_info* const dlInfo)
+//{
+//    char faddrBuff[20];
+//    char saddrBuff[20];
+//
+//    const char* fname = ksfu_lastPathEntry(dlInfo->dli_fname);
+//    if(fname == NULL)
+//    {
+//        sprintf(faddrBuff, POINTER_FMT, (uintptr_t)dlInfo->dli_fbase);
+//        fname = faddrBuff;
+//    }
+//
+//    uintptr_t offset = address - (uintptr_t)dlInfo->dli_saddr;
+//    const char* sname = dlInfo->dli_sname;
+//    if(sname == NULL)
+//    {
+//        sprintf(saddrBuff, POINTER_SHORT_FMT, (uintptr_t)dlInfo->dli_fbase);
+//        sname = saddrBuff;
+//        offset = address - (uintptr_t)dlInfo->dli_fbase;
+//    }
+//
+//    KSLOGBASIC_ALWAYS(TRACE_FMT, entryNum, fname, address, sname, offset);
+//}
 
 /** Print a backtrace to the log.
  *
@@ -436,48 +436,48 @@ static void logBacktraceEntry(const int entryNum, const uintptr_t address, const
  *
  * @param backtraceLength The length of the backtrace.
  */
-static void logBacktrace(const uintptr_t* const backtrace, const int backtraceLength, const int skippedEntries)
-{
-    if(backtraceLength > 0)
-    {
-        Dl_info symbolicated[backtraceLength];
-        ksbt_symbolicate(backtrace, symbolicated, backtraceLength, skippedEntries);
-
-        for(int i = 0; i < backtraceLength; i++)
-        {
-            logBacktraceEntry(i, backtrace[i], &symbolicated[i]);
-        }
-    }
-}
+//static void logBacktrace(const uintptr_t* const backtrace, const int backtraceLength, const int skippedEntries)
+//{
+//    if(backtraceLength > 0)
+//    {
+//        Dl_info symbolicated[backtraceLength];
+//        ksbt_symbolicate(backtrace, symbolicated, backtraceLength, skippedEntries);
+//
+//        for(int i = 0; i < backtraceLength; i++)
+//        {
+//            logBacktraceEntry(i, backtrace[i], &symbolicated[i]);
+//        }
+//    }
+//}
 
 /** Print the backtrace for the crashed thread to the log.
  *
  * @param crash The crash handler context.
  */
-static void logCrashThreadBacktrace(const KSCrash_SentryContext* const crash)
-{
-    thread_t thread = crash->offendingThread;
-    STRUCT_MCONTEXT_L concreteMachineContext;
-    uintptr_t concreteBacktrace[kMaxStackTracePrintLines];
-    int backtraceLength = sizeof(concreteBacktrace) / sizeof(*concreteBacktrace);
-
-    STRUCT_MCONTEXT_L* machineContext = getMachineContext(crash,
-                                                          thread,
-                                                          &concreteMachineContext);
-
-    int skippedEntries = 0;
-    uintptr_t* backtrace = getBacktrace(crash,
-                                        thread,
-                                        machineContext,
-                                        concreteBacktrace,
-                                        &backtraceLength,
-                                        &skippedEntries);
-
-    if(backtrace != NULL)
-    {
-        logBacktrace(backtrace, backtraceLength, skippedEntries);
-    }
-}
+//static void logCrashThreadBacktrace(const KSCrash_SentryContext* const crash)
+//{
+//    thread_t thread = crash->offendingThread;
+//    STRUCT_MCONTEXT_L concreteMachineContext;
+//    uintptr_t concreteBacktrace[kMaxStackTracePrintLines];
+//    int backtraceLength = sizeof(concreteBacktrace) / sizeof(*concreteBacktrace);
+//
+//    STRUCT_MCONTEXT_L* machineContext = getMachineContext(crash,
+//                                                          thread,
+//                                                          &concreteMachineContext);
+//
+//    int skippedEntries = 0;
+//    uintptr_t* backtrace = getBacktrace(crash,
+//                                        thread,
+//                                        machineContext,
+//                                        concreteBacktrace,
+//                                        &backtraceLength,
+//                                        &skippedEntries);
+//
+//    if(backtrace != NULL)
+//    {
+//        logBacktrace(backtrace, backtraceLength, skippedEntries);
+//    }
+//}
 
 
 // ============================================================================
@@ -495,10 +495,10 @@ static void logCrashThreadBacktrace(const KSCrash_SentryContext* const crash)
  *
  * @param limit How many more subreferenced objects to write, if any.
  */
-static void writeMemoryContents(const KSCrashReportWriter* const writer,
-                                const char* const key,
-                                const uintptr_t address,
-                                int* limit);
+//static void writeMemoryContents(const KSCrashReportWriter* const writer,
+//                                const char* const key,
+//                                const uintptr_t address,
+//                                int* limit);
 
 
 
@@ -515,20 +515,20 @@ static void writeMemoryContents(const KSCrashReportWriter* const writer,
  */
 
 
-static bool isRestrictedClass(const char* name)
-{
-    if(g_introspectionRules->restrictedClasses != NULL)
-    {
-        for(int i = 0; i < g_introspectionRules->restrictedClassesCount; i++)
-        {
-            if(strcmp(name, g_introspectionRules->restrictedClasses[i]) == 0)
-            {
-                return true;
-            }
-        }
-    }
-    return false;
-}
+//static bool isRestrictedClass(const char* name)
+//{
+//    if(g_introspectionRules->restrictedClasses != NULL)
+//    {
+//        for(int i = 0; i < g_introspectionRules->restrictedClassesCount; i++)
+//        {
+//            if(strcmp(name, g_introspectionRules->restrictedClasses[i]) == 0)
+//            {
+//                return true;
+//            }
+//        }
+//    }
+//    return false;
+//}
 
 //static bool isValidPointer(const uintptr_t address)
 //{
@@ -562,28 +562,28 @@ static bool isRestrictedClass(const char* name)
  *
  * @param info Information about the nearest symbols to the address.
  */
-static void writeBacktraceEntry(const KSCrashReportWriter* const writer,
-                                const char* const key,
-                                const uintptr_t address,
-                                const Dl_info* const info)
-{
-//    writer->beginObject(writer, key);
-//    {
-        if(info->dli_fname != NULL)
-        {
-//            writer->addStringElement(writer, KSCrashField_ObjectName, ksfu_lastPathEntry(info->dli_fname));
-        }
-//        writer->addUIntegerElement(writer, KSCrashField_ObjectAddr, (uintptr_t)info->dli_fbase);
-        if(info->dli_sname != NULL)
-        {
-            const char* sname = info->dli_sname;
-//            writer->addStringElement(writer, KSCrashField_SymbolName, sname);
-        }
-//        writer->addUIntegerElement(writer, KSCrashField_SymbolAddr, (uintptr_t)info->dli_saddr);
-//        writer->addUIntegerElement(writer, KSCrashField_InstructionAddr, address);
-//    }
-//    writer->endContainer(writer);
-}
+//static void writeBacktraceEntry(const KSCrashReportWriter* const writer,
+//                                const char* const key,
+//                                const uintptr_t address,
+//                                const Dl_info* const info)
+//{
+////    writer->beginObject(writer, key);
+////    {
+//        if(info->dli_fname != NULL)
+//        {
+////            writer->addStringElement(writer, KSCrashField_ObjectName, ksfu_lastPathEntry(info->dli_fname));
+//        }
+////        writer->addUIntegerElement(writer, KSCrashField_ObjectAddr, (uintptr_t)info->dli_fbase);
+//        if(info->dli_sname != NULL)
+//        {
+//            const char* sname = info->dli_sname;
+////            writer->addStringElement(writer, KSCrashField_SymbolName, sname);
+//        }
+////        writer->addUIntegerElement(writer, KSCrashField_SymbolAddr, (uintptr_t)info->dli_saddr);
+////        writer->addUIntegerElement(writer, KSCrashField_InstructionAddr, address);
+////    }
+////    writer->endContainer(writer);
+//}
 
 /** Write a backtrace to the report.
  *
@@ -598,32 +598,32 @@ static void writeBacktraceEntry(const KSCrashReportWriter* const writer,
  * @param skippedEntries The number of entries that were skipped before the
  *                       beginning of backtrace.
  */
-static void writeBacktrace(const KSCrashReportWriter* const writer,
-                           const char* const key,
-                           const uintptr_t* const backtrace,
-                           const int backtraceLength,
-                           const int skippedEntries)
-{
-//    writer->beginObject(writer, key);
-//    {
-//        writer->beginArray(writer, KSCrashField_Contents);
-//        {
-            if(backtraceLength > 0)
-            {
-                Dl_info symbolicated[backtraceLength];
-                ksbt_symbolicate(backtrace, symbolicated, backtraceLength, skippedEntries);
-
-                for(int i = 0; i < backtraceLength; i++)
-                {
-                    writeBacktraceEntry(writer, NULL, backtrace[i], &symbolicated[i]);
-                }
-            }
-//        }
-//        writer->endContainer(writer);
-//        writer->addIntegerElement(writer, KSCrashField_Skipped, skippedEntries);
-//    }
-//    writer->endContainer(writer);
-}
+//static void writeBacktrace(const KSCrashReportWriter* const writer,
+//                           const char* const key,
+//                           const uintptr_t* const backtrace,
+//                           const int backtraceLength,
+//                           const int skippedEntries)
+//{
+////    writer->beginObject(writer, key);
+////    {
+////        writer->beginArray(writer, KSCrashField_Contents);
+////        {
+//            if(backtraceLength > 0)
+//            {
+//                Dl_info symbolicated[backtraceLength];
+//                ksbt_symbolicate(backtrace, symbolicated, backtraceLength, skippedEntries);
+//
+//                for(int i = 0; i < backtraceLength; i++)
+//                {
+//                    writeBacktraceEntry(writer, NULL, backtrace[i], &symbolicated[i]);
+//                }
+//            }
+////        }
+////        writer->endContainer(writer);
+////        writer->addIntegerElement(writer, KSCrashField_Skipped, skippedEntries);
+////    }
+////    writer->endContainer(writer);
+//}
 
 #pragma mark Stack
 
@@ -681,29 +681,29 @@ static void writeBacktrace(const KSCrashReportWriter* const writer,
  *
  * @param machineContext The context to retrieve the registers from.
  */
-static void writeBasicRegisters(const KSCrashReportWriter* const writer,
-                                const char* const key,
-                                const STRUCT_MCONTEXT_L* const machineContext)
-{
-    char registerNameBuff[30];
-    const char* registerName;
-    writer->beginObject(writer, key);
-    {
-        const int numRegisters = kscpu_numRegisters();
-        for(int reg = 0; reg < numRegisters; reg++)
-        {
-            registerName = kscpu_registerName(reg);
-            if(registerName == NULL)
-            {
-                snprintf(registerNameBuff, sizeof(registerNameBuff), "r%d", reg);
-                registerName = registerNameBuff;
-            }
-            writer->addUIntegerElement(writer, registerName,
-                                       kscpu_registerValue(machineContext, reg));
-        }
-    }
-    writer->endContainer(writer);
-}
+//static void writeBasicRegisters(const KSCrashReportWriter* const writer,
+//                                const char* const key,
+//                                const STRUCT_MCONTEXT_L* const machineContext)
+//{
+//    char registerNameBuff[30];
+//    const char* registerName;
+//    writer->beginObject(writer, key);
+//    {
+//        const int numRegisters = kscpu_numRegisters();
+//        for(int reg = 0; reg < numRegisters; reg++)
+//        {
+//            registerName = kscpu_registerName(reg);
+//            if(registerName == NULL)
+//            {
+//                snprintf(registerNameBuff, sizeof(registerNameBuff), "r%d", reg);
+//                registerName = registerNameBuff;
+//            }
+//            writer->addUIntegerElement(writer, registerName,
+//                                       kscpu_registerValue(machineContext, reg));
+//        }
+//    }
+//    writer->endContainer(writer);
+//}
 
 /** Write the contents of all exception registers to the report.
  *
@@ -713,29 +713,29 @@ static void writeBasicRegisters(const KSCrashReportWriter* const writer,
  *
  * @param machineContext The context to retrieve the registers from.
  */
-static void writeExceptionRegisters(const KSCrashReportWriter* const writer,
-                                    const char* const key,
-                                    const STRUCT_MCONTEXT_L* const machineContext)
-{
-    char registerNameBuff[30];
-    const char* registerName;
-    writer->beginObject(writer, key);
-    {
-        const int numRegisters = kscpu_numExceptionRegisters();
-        for(int reg = 0; reg < numRegisters; reg++)
-        {
-            registerName = kscpu_exceptionRegisterName(reg);
-            if(registerName == NULL)
-            {
-                snprintf(registerNameBuff, sizeof(registerNameBuff), "r%d", reg);
-                registerName = registerNameBuff;
-            }
-            writer->addUIntegerElement(writer,registerName,
-                                       kscpu_exceptionRegisterValue(machineContext, reg));
-        }
-    }
-    writer->endContainer(writer);
-}
+//static void writeExceptionRegisters(const KSCrashReportWriter* const writer,
+//                                    const char* const key,
+//                                    const STRUCT_MCONTEXT_L* const machineContext)
+//{
+//    char registerNameBuff[30];
+//    const char* registerName;
+//    writer->beginObject(writer, key);
+//    {
+//        const int numRegisters = kscpu_numExceptionRegisters();
+//        for(int reg = 0; reg < numRegisters; reg++)
+//        {
+//            registerName = kscpu_exceptionRegisterName(reg);
+//            if(registerName == NULL)
+//            {
+//                snprintf(registerNameBuff, sizeof(registerNameBuff), "r%d", reg);
+//                registerName = registerNameBuff;
+//            }
+//            writer->addUIntegerElement(writer,registerName,
+//                                       kscpu_exceptionRegisterValue(machineContext, reg));
+//        }
+//    }
+//    writer->endContainer(writer);
+//}
 
 
 
@@ -773,8 +773,8 @@ static void writeThread(const KSCrashReportWriter* const writer,
     //add by yao
     KSCrash_Context* context = writer->context;
     
-    bool isCrashedThread = thread == crash->offendingThread;
-    char nameBuffer[128];
+//    bool isCrashedThread = thread == crash->offendingThread;
+//    char nameBuffer[128];
     STRUCT_MCONTEXT_L machineContextBuffer;
     uintptr_t backtraceBuffer[kMaxBacktraceDepth];
     int backtraceLength = sizeof(backtraceBuffer) / sizeof(*backtraceBuffer);
@@ -880,7 +880,7 @@ void writeAllThreads(const KSCrashReportWriter* const writer,
 {
     //add by yao
     KSCrash_Context* context = writer->context;
-    g_introspectionRules = &context->config.introspectionRules;
+//    g_introspectionRules = &context->config.introspectionRules;
     updateStackOverflowStatus(context);
     
     
@@ -920,38 +920,38 @@ void writeAllThreads(const KSCrashReportWriter* const writer,
  *
  * @return The thread's index, or -1 if it couldn't be determined.
  */
-static int threadIndex(const thread_t thread)
-{
-    int index = -1;
-    const task_t thisTask = mach_task_self();
-    thread_act_array_t threads;
-    mach_msg_type_number_t numThreads;
-    kern_return_t kr;
-
-    if((kr = task_threads(thisTask, &threads, &numThreads)) != KERN_SUCCESS)
-    {
-        KSLOG_ERROR("task_threads: %s", mach_error_string(kr));
-        return -1;
-    }
-
-    for(mach_msg_type_number_t i = 0; i < numThreads; i++)
-    {
-        if(threads[i] == thread)
-        {
-            index = (int)i;
-            break;
-        }
-    }
-
-    // Clean up.
-    for(mach_msg_type_number_t i = 0; i < numThreads; i++)
-    {
-        mach_port_deallocate(thisTask, threads[i]);
-    }
-    vm_deallocate(thisTask, (vm_address_t)threads, sizeof(thread_t) * numThreads);
-
-    return index;
-}
+//static int threadIndex(const thread_t thread)
+//{
+//    int index = -1;
+//    const task_t thisTask = mach_task_self();
+//    thread_act_array_t threads;
+//    mach_msg_type_number_t numThreads;
+//    kern_return_t kr;
+//
+//    if((kr = task_threads(thisTask, &threads, &numThreads)) != KERN_SUCCESS)
+//    {
+//        KSLOG_ERROR("task_threads: %s", mach_error_string(kr));
+//        return -1;
+//    }
+//
+//    for(mach_msg_type_number_t i = 0; i < numThreads; i++)
+//    {
+//        if(threads[i] == thread)
+//        {
+//            index = (int)i;
+//            break;
+//        }
+//    }
+//
+//    // Clean up.
+//    for(mach_msg_type_number_t i = 0; i < numThreads; i++)
+//    {
+//        mach_port_deallocate(thisTask, threads[i]);
+//    }
+//    vm_deallocate(thisTask, (vm_address_t)threads, sizeof(thread_t) * numThreads);
+//
+//    return index;
+//}
 
 #pragma mark Global Report Data
 
@@ -1136,9 +1136,9 @@ static int threadIndex(const thread_t thread)
 #pragma mark - Main API -
 // ============================================================================
 
-void kscrashreport_logCrash(const KSCrash_Context* const crashContext)
-{
-    const KSCrash_SentryContext* crash = &crashContext->crash;
-    logCrashType(crash);
-    logCrashThreadBacktrace(&crashContext->crash);
-}
+//void kscrashreport_logCrash(const KSCrash_Context* const crashContext)
+//{
+//    const KSCrash_SentryContext* crash = &crashContext->crash;
+//    logCrashType(crash);
+//    logCrashThreadBacktrace(&crashContext->crash);
+//}

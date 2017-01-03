@@ -45,21 +45,21 @@ extern "C" {
 #include <stdbool.h>
 #include <dlfcn.h>
 
-typedef struct
-{
-    /** If YES, introspect memory contents during a crash.
-     * Any Objective-C objects or C strings near the stack pointer or referenced by
-     * cpu registers or exceptions will be recorded in the crash report, along with
-     * their contents.
-     */
-    bool enabled;
-    
-    /** List of classes that should never be introspected.
-     * Whenever a class in this list is encountered, only the class name will be recorded.
-     */
-    const char** restrictedClasses;
-    int restrictedClassesCount;
-} KSCrash_IntrospectionRules;
+//typedef struct
+//{
+//    /** If YES, introspect memory contents during a crash.
+//     * Any Objective-C objects or C strings near the stack pointer or referenced by
+//     * cpu registers or exceptions will be recorded in the crash report, along with
+//     * their contents.
+//     */
+//    bool enabled;
+//    
+//    /** List of classes that should never be introspected.
+//     * Whenever a class in this list is encountered, only the class name will be recorded.
+//     */
+//    const char** restrictedClasses;
+//    int restrictedClassesCount;
+//} KSCrash_IntrospectionRules;
 
 typedef struct
 {
@@ -67,28 +67,28 @@ typedef struct
     const char* crashID;
 
     /** Name of this process. */
-    const char* processName;
+//    const char* processName;
 
     /** System information in JSON format (to be written to the report). */
-    const char* systemInfoJSON;
+//    const char* systemInfoJSON;
 
     /** User information in JSON format (to be written to the report). */
-    const char* userInfoJSON;
+//    const char* userInfoJSON;
 
     /** When writing the crash report, print a stack trace to STDOUT as well. */
-    bool printTraceToStdout;
+//    bool printTraceToStdout;
 
     /** If true, do a non-async-safe search of thread names. */
-    bool searchThreadNames;
+//    bool searchThreadNames;
 
     /** If true, do a non-async-safe search of queue names. */
-    bool searchQueueNames;
+//    bool searchQueueNames;
 
     /** The types of crashes that will be handled. */
     KSCrashType handlingCrashTypes;
 
     /** Rules for introspecting Objective-C objects. */
-    KSCrash_IntrospectionRules introspectionRules;
+//    KSCrash_IntrospectionRules introspectionRules;
     
     /** Callback allowing the application the opportunity to add extra data to
      * the report file. Application MUST NOT call async-unsafe methods!

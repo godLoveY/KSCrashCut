@@ -61,6 +61,17 @@
     NSString *str = @"2";
     [str substringFromIndex:11];
 }
+
+- (void) onCrash3:(__unused id) sender
+{
+    NSString *str = [[NSString alloc]initWithFormat:@"123"];
+    __weak NSString *weakStr = str;
+    
+    dispatch_async(dispatch_get_main_queue(), ^
+                   {
+                       NSLog(@"weakStr = %@",weakStr);
+                   });
+}
 - (void)buttonAction:(UIButton*)bt
 {
     NSString *str = _arr[bt.tag-101];
@@ -72,7 +83,7 @@
             func(_crasher, select);
         }
     }else{
-//        [self onCrash2:bt];
+        [self onCrash3:bt];
     }
 }
 
