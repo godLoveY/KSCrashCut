@@ -64,7 +64,7 @@ extern "C" {
 typedef struct
 {
     /** A unique identifier (UUID). */
-    const char* crashID;
+//    const char* crashID;
 
     /** Name of this process. */
 //    const char* processName;

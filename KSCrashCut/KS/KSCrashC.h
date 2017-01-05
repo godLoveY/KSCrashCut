@@ -68,7 +68,6 @@ KSCrashType kscrash_setHandlingCrashTypes(KSCrashType crashTypes);
 /** Reinstall the crash reporter. Useful for resetting the crash reporter
  * after a "soft" crash.
  */
-void kscrash_reinstall();
 
 /** Set the user-supplied data in JSON format.
  *

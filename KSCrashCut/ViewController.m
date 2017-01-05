@@ -72,6 +72,24 @@
                        NSLog(@"weakStr = %@",weakStr);
                    });
 }
+
+- (void)onCrash4:(id)sender
+{
+//    dispatch_queue_t gQueue =dispatch_get_global_queue (DISPATCH_QUEUE_PRIORITY_DEFAULT,0);
+    dispatch_queue_t gQueue = dispatch_queue_create("com.lai.www", DISPATCH_QUEUE_CONCURRENT);
+    for (int i = 0; i<1000; i++) {
+        dispatch_async(gQueue, ^{
+            NSLog(@"thread = %@",[NSThread currentThread]);
+            [NSTimer scheduledTimerWithTimeInterval:10.0f target:self selector:@selector(timerAction) userInfo:nil repeats:YES];
+           [[NSRunLoop currentRunLoop] run];
+        });
+    }
+}
+- (void)timerAction
+{
+//    NSLog(@"time_thread = %@",[NSThread currentThread]);
+    NSLog(@"-");
+}
 - (void)buttonAction:(UIButton*)bt
 {
     NSString *str = _arr[bt.tag-101];
@@ -83,7 +101,7 @@
             func(_crasher, select);
         }
     }else{
-        [self onCrash3:bt];
+        [self onCrash4:bt];
     }
 }
 

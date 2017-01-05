@@ -15,7 +15,6 @@
 		7E339C931E14D929009527D7 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7E339C901E14D929009527D7 /* ViewController.m */; };
 		7E339C941E14D929009527D7 /* Crasher.mm in Sources */ = {isa = PBXBuildFile; fileRef = 7E339C921E14D929009527D7 /* Crasher.mm */; };
 		7E339C981E14DDFB009527D7 /* KSCrash.m in Sources */ = {isa = PBXBuildFile; fileRef = 7E339C971E14DDFB009527D7 /* KSCrash.m */; };
-		7E339C9C1E14EB97009527D7 /* KSCrashType.c in Sources */ = {isa = PBXBuildFile; fileRef = 7E339C9A1E14EB97009527D7 /* KSCrashType.c */; };
 		7E339CA01E14EE4D009527D7 /* KSCrashC.c in Sources */ = {isa = PBXBuildFile; fileRef = 7E339C9D1E14EE4D009527D7 /* KSCrashC.c */; };
 		7E339CAF1E14F1C9009527D7 /* KSCrashSentry.c in Sources */ = {isa = PBXBuildFile; fileRef = 7E339CA11E14F1C9009527D7 /* KSCrashSentry.c */; };
 		7E339CB01E14F1C9009527D7 /* KSCrashSentry_CPPException.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7E339CA41E14F1C9009527D7 /* KSCrashSentry_CPPException.cpp */; };
@@ -53,7 +52,6 @@
 		7E339C961E14DDFB009527D7 /* KSCrash.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KSCrash.h; sourceTree = "<group>"; };
 		7E339C971E14DDFB009527D7 /* KSCrash.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KSCrash.m; sourceTree = "<group>"; };
 		7E339C991E14E7E0009527D7 /* PrefixHeader.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PrefixHeader.pch; sourceTree = "<group>"; };
-		7E339C9A1E14EB97009527D7 /* KSCrashType.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = KSCrashType.c; sourceTree = "<group>"; };
 		7E339C9B1E14EB97009527D7 /* KSCrashType.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KSCrashType.h; sourceTree = "<group>"; };
 		7E339C9D1E14EE4D009527D7 /* KSCrashC.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = KSCrashC.c; sourceTree = "<group>"; };
 		7E339C9E1E14EE4D009527D7 /* KSCrashC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KSCrashC.h; sourceTree = "<group>"; };
@@ -161,7 +159,6 @@
 			children = (
 				7E339C961E14DDFB009527D7 /* KSCrash.h */,
 				7E339C971E14DDFB009527D7 /* KSCrash.m */,
-				7E339C9A1E14EB97009527D7 /* KSCrashType.c */,
 				7E339C9B1E14EB97009527D7 /* KSCrashType.h */,
 				7E339C9D1E14EE4D009527D7 /* KSCrashC.c */,
 				7E339C9E1E14EE4D009527D7 /* KSCrashC.h */,
@@ -319,7 +316,6 @@
 				7E339C7A1E14D862009527D7 /* main.m in Sources */,
 				7E339CD61E15FAAA009527D7 /* KSCrashReport.c in Sources */,
 				7E339CB01E14F1C9009527D7 /* KSCrashSentry_CPPException.cpp in Sources */,
-				7E339C9C1E14EB97009527D7 /* KSCrashType.c in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -386,6 +382,8 @@
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.2;
+				LD_GENERATE_MAP_FILE = YES;
+				LD_MAP_FILE_PATH = /Users/yaoderen131/linkMapFile/1.txt;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
@@ -428,6 +426,8 @@
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.2;
+				LD_GENERATE_MAP_FILE = YES;
+				LD_MAP_FILE_PATH = /Users/yaoderen131/linkMapFile/1.txt;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";

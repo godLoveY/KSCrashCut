@@ -32,7 +32,7 @@
 #include "KSCPU_Apple.h"
 
 //#define KSLogger_LocalLevel TRACE
-#include "KSLogger.h"
+//#include "KSLogger.h"
 
 
 static const char* g_registerNames[] =
