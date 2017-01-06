@@ -85,6 +85,9 @@ typedef struct KSCrash_SentryContext
     /** Short description of why the crash occurred. */
     const char* crashReason;
     
+    //add by yao
+    char *resCrashReason;
+    
     /** The stack trace. */
     uintptr_t* stackTrace;
     

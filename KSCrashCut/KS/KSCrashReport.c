@@ -352,6 +352,61 @@ static void updateStackOverflowStatus(KSCrash_Context* const crashContext)
         crashContext->crash.isStackOverflow = true;
     }
 }
+
+/** add by yao: update result crash reason
+ 
+ */
+static void updateResCrashReason( KSCrash_SentryContext* const sentryContext)
+{
+    switch(sentryContext->crashType)
+    {
+        case KSCrashTypeMachException:
+        {
+            int machExceptionType = sentryContext->mach.type;
+            kern_return_t machCode = (kern_return_t)sentryContext->mach.code;
+            const char* machExceptionName = ksmach_exceptionName(machExceptionType);
+            const char* machCodeName = machCode == 0 ? NULL : ksmach_kernelReturnCodeName(machCode);
+            char tmpStr[1110];
+            sprintf(tmpStr,"App crashed due to mach exception: [%s: %s] at 0x%08lx",
+                            machExceptionName, machCodeName, sentryContext->faultAddress);
+            sentryContext->resCrashReason = strdup(tmpStr);
+            break;
+        }
+        case KSCrashTypeCPPException:
+        {
+            char tmpStr[1110];
+            sprintf(tmpStr,"App crashed due to C++ exception: %s: %s",
+                       sentryContext->CPPException.name,
+                       sentryContext->crashReason);
+            sentryContext->resCrashReason = strdup(tmpStr);
+            break;
+        }
+        case KSCrashTypeNSException:
+        {
+            char tmpStr[1110];
+            sprintf(tmpStr,"App crashed due to NSException: %s: %s",
+                            sentryContext->NSException.name,
+                            sentryContext->crashReason);
+            sentryContext->resCrashReason = strdup(tmpStr);
+            break;
+        }
+        case KSCrashTypeSignal:
+        {
+            int sigNum = sentryContext->signal.signalInfo->si_signo;
+            int sigCode = sentryContext->signal.signalInfo->si_code;
+            const char* sigName = kssignal_signalName(sigNum);
+            const char* sigCodeName = kssignal_signalCodeName(sigNum, sigCode);
+            char tmpStr[1110];
+            sprintf(tmpStr,"App crashed due to signal: [%s, %s] at 0x%08lx",
+                            sigName, sigCodeName, sentryContext->faultAddress);
+            sentryContext->resCrashReason = strdup(tmpStr);
+            break;
+        }
+        default:
+            sentryContext->resCrashReason = strdup("can not parse");
+            break;
+    }
+}
 /** Write information about all threads to the report.
  *
  * @param writer The writer.
@@ -394,6 +449,9 @@ void writeAllThreads(const KSCrashReportWriter* const writer,
         }
     }
     
+    //add by yao
+    
+    updateResCrashReason(&context->crash);
 
     // Clean up.
     for(mach_msg_type_number_t i = 0; i < numThreads; i++)

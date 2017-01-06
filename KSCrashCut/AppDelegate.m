@@ -65,6 +65,7 @@ static void onCrash(const KSCrashReportWriter* writer)
         [arr addObject:tmpDic];
     }
     [resDic setValue:arr forKey:@"contents"];
+    [resDic setValue:[NSString stringWithFormat:@"%s",context->crash.resCrashReason] forKey:@"resCrashReason"];
     [ArchObj archiData:resDic forKey:@"resDic"];
     
 //    NSLog(@"uuid = %s",context->config.crashID);
