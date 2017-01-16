@@ -15,6 +15,8 @@ void writeAllThreads(const KSCrashReportWriter* const writer,
                                 bool writeNotableAddresses,
                                 bool searchThreadNames,
                             bool searchQueueNames);
+    
+    void printCallStack(thread_t thread);
 
 #ifdef __cplusplus
 }

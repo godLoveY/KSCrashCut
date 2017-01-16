@@ -7,6 +7,26 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		7E112A341E1F3ED600CB71BA /* KSCrash.m in Sources */ = {isa = PBXBuildFile; fileRef = 7E339C971E14DDFB009527D7 /* KSCrash.m */; };
+		7E112A361E1F3ED600CB71BA /* KSCrashC.c in Sources */ = {isa = PBXBuildFile; fileRef = 7E339C9D1E14EE4D009527D7 /* KSCrashC.c */; };
+		7E112A391E1F3ED600CB71BA /* KSDebug.c in Sources */ = {isa = PBXBuildFile; fileRef = 7E339CB51E14F223009527D7 /* KSDebug.c */; };
+		7E112A3B1E1F3ED600CB71BA /* KSCrashSentry.c in Sources */ = {isa = PBXBuildFile; fileRef = 7E339CA11E14F1C9009527D7 /* KSCrashSentry.c */; };
+		7E112A3E1E1F3ED600CB71BA /* KSCrashSentry_CPPException.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7E339CA41E14F1C9009527D7 /* KSCrashSentry_CPPException.cpp */; };
+		7E112A401E1F3ED600CB71BA /* KSCrashSentry_MachException.c in Sources */ = {isa = PBXBuildFile; fileRef = 7E339CA81E14F1C9009527D7 /* KSCrashSentry_MachException.c */; };
+		7E112A431E1F3ED600CB71BA /* KSCrashSentry_NSException.m in Sources */ = {isa = PBXBuildFile; fileRef = 7E339CAB1E14F1C9009527D7 /* KSCrashSentry_NSException.m */; };
+		7E112A441E1F3ED600CB71BA /* KSCrashSentry_Signal.c in Sources */ = {isa = PBXBuildFile; fileRef = 7E339CAD1E14F1C9009527D7 /* KSCrashSentry_Signal.c */; };
+		7E112A471E1F3ED600CB71BA /* KSThread.c in Sources */ = {isa = PBXBuildFile; fileRef = 7E339CB81E14F5C7009527D7 /* KSThread.c */; };
+		7E112A4B1E1F3ED600CB71BA /* KSCPU_Apple.c in Sources */ = {isa = PBXBuildFile; fileRef = 7E339CBE1E14FAB8009527D7 /* KSCPU_Apple.c */; };
+		7E112A4D1E1F3ED600CB71BA /* KSCPU_arm.c in Sources */ = {isa = PBXBuildFile; fileRef = 7E339CC01E14FAB8009527D7 /* KSCPU_arm.c */; };
+		7E112A4E1E1F3ED600CB71BA /* KSCPU_arm64.c in Sources */ = {isa = PBXBuildFile; fileRef = 7E339CC11E14FAB8009527D7 /* KSCPU_arm64.c */; };
+		7E112A4F1E1F3ED600CB71BA /* KSCPU_x86_32.c in Sources */ = {isa = PBXBuildFile; fileRef = 7E339CC21E14FAB8009527D7 /* KSCPU_x86_32.c */; };
+		7E112A501E1F3ED600CB71BA /* KSCPU_x86_64.c in Sources */ = {isa = PBXBuildFile; fileRef = 7E339CC31E14FAB8009527D7 /* KSCPU_x86_64.c */; };
+		7E112A511E1F3ED600CB71BA /* KSSignalInfo.c in Sources */ = {isa = PBXBuildFile; fileRef = 7E339CC91E14FBD8009527D7 /* KSSignalInfo.c */; };
+		7E112A541E1F3ED600CB71BA /* KSCrashReport.c in Sources */ = {isa = PBXBuildFile; fileRef = 7E339CD41E15FAAA009527D7 /* KSCrashReport.c */; };
+		7E112A561E1F3ED600CB71BA /* KSBacktrace.c in Sources */ = {isa = PBXBuildFile; fileRef = 7E339CD71E15FC65009527D7 /* KSBacktrace.c */; };
+		7E112A591E1F3ED600CB71BA /* KSDynamicLinker.c in Sources */ = {isa = PBXBuildFile; fileRef = 7E339CDB1E160115009527D7 /* KSDynamicLinker.c */; };
+		7E112A5B1E1F3ED600CB71BA /* KSMach.c in Sources */ = {isa = PBXBuildFile; fileRef = 7E339CDE1E160184009527D7 /* KSMach.c */; };
+		7E112A5C1E1F3ED600CB71BA /* KSMach.h in Sources */ = {isa = PBXBuildFile; fileRef = 7E339CDF1E160184009527D7 /* KSMach.h */; };
 		7E339C7A1E14D862009527D7 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 7E339C791E14D862009527D7 /* main.m */; };
 		7E339C7D1E14D862009527D7 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 7E339C7C1E14D862009527D7 /* AppDelegate.m */; };
 		7E339C831E14D862009527D7 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7E339C811E14D862009527D7 /* Main.storyboard */; };
@@ -14,26 +34,7 @@
 		7E339C881E14D862009527D7 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7E339C861E14D862009527D7 /* LaunchScreen.storyboard */; };
 		7E339C931E14D929009527D7 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7E339C901E14D929009527D7 /* ViewController.m */; };
 		7E339C941E14D929009527D7 /* Crasher.mm in Sources */ = {isa = PBXBuildFile; fileRef = 7E339C921E14D929009527D7 /* Crasher.mm */; };
-		7E339C981E14DDFB009527D7 /* KSCrash.m in Sources */ = {isa = PBXBuildFile; fileRef = 7E339C971E14DDFB009527D7 /* KSCrash.m */; };
-		7E339CA01E14EE4D009527D7 /* KSCrashC.c in Sources */ = {isa = PBXBuildFile; fileRef = 7E339C9D1E14EE4D009527D7 /* KSCrashC.c */; };
-		7E339CAF1E14F1C9009527D7 /* KSCrashSentry.c in Sources */ = {isa = PBXBuildFile; fileRef = 7E339CA11E14F1C9009527D7 /* KSCrashSentry.c */; };
-		7E339CB01E14F1C9009527D7 /* KSCrashSentry_CPPException.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7E339CA41E14F1C9009527D7 /* KSCrashSentry_CPPException.cpp */; };
-		7E339CB21E14F1C9009527D7 /* KSCrashSentry_MachException.c in Sources */ = {isa = PBXBuildFile; fileRef = 7E339CA81E14F1C9009527D7 /* KSCrashSentry_MachException.c */; };
-		7E339CB31E14F1C9009527D7 /* KSCrashSentry_NSException.m in Sources */ = {isa = PBXBuildFile; fileRef = 7E339CAB1E14F1C9009527D7 /* KSCrashSentry_NSException.m */; };
-		7E339CB41E14F1C9009527D7 /* KSCrashSentry_Signal.c in Sources */ = {isa = PBXBuildFile; fileRef = 7E339CAD1E14F1C9009527D7 /* KSCrashSentry_Signal.c */; };
-		7E339CB71E14F223009527D7 /* KSDebug.c in Sources */ = {isa = PBXBuildFile; fileRef = 7E339CB51E14F223009527D7 /* KSDebug.c */; };
-		7E339CBA1E14F5C7009527D7 /* KSThread.c in Sources */ = {isa = PBXBuildFile; fileRef = 7E339CB81E14F5C7009527D7 /* KSThread.c */; };
-		7E339CC41E14FAB8009527D7 /* KSCPU_Apple.c in Sources */ = {isa = PBXBuildFile; fileRef = 7E339CBE1E14FAB8009527D7 /* KSCPU_Apple.c */; };
-		7E339CC51E14FAB8009527D7 /* KSCPU_arm.c in Sources */ = {isa = PBXBuildFile; fileRef = 7E339CC01E14FAB8009527D7 /* KSCPU_arm.c */; };
-		7E339CC61E14FAB8009527D7 /* KSCPU_arm64.c in Sources */ = {isa = PBXBuildFile; fileRef = 7E339CC11E14FAB8009527D7 /* KSCPU_arm64.c */; };
-		7E339CC71E14FAB8009527D7 /* KSCPU_x86_32.c in Sources */ = {isa = PBXBuildFile; fileRef = 7E339CC21E14FAB8009527D7 /* KSCPU_x86_32.c */; };
-		7E339CC81E14FAB8009527D7 /* KSCPU_x86_64.c in Sources */ = {isa = PBXBuildFile; fileRef = 7E339CC31E14FAB8009527D7 /* KSCPU_x86_64.c */; };
-		7E339CCB1E14FBD8009527D7 /* KSSignalInfo.c in Sources */ = {isa = PBXBuildFile; fileRef = 7E339CC91E14FBD8009527D7 /* KSSignalInfo.c */; };
 		7E339CCF1E150086009527D7 /* ArchObj.m in Sources */ = {isa = PBXBuildFile; fileRef = 7E339CCE1E150086009527D7 /* ArchObj.m */; };
-		7E339CD61E15FAAA009527D7 /* KSCrashReport.c in Sources */ = {isa = PBXBuildFile; fileRef = 7E339CD41E15FAAA009527D7 /* KSCrashReport.c */; };
-		7E339CDA1E15FC65009527D7 /* KSBacktrace.c in Sources */ = {isa = PBXBuildFile; fileRef = 7E339CD71E15FC65009527D7 /* KSBacktrace.c */; };
-		7E339CDD1E160115009527D7 /* KSDynamicLinker.c in Sources */ = {isa = PBXBuildFile; fileRef = 7E339CDB1E160115009527D7 /* KSDynamicLinker.c */; };
-		7E339CE11E160184009527D7 /* KSMach.c in Sources */ = {isa = PBXBuildFile; fileRef = 7E339CDE1E160184009527D7 /* KSMach.c */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -292,30 +293,31 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7E112A341E1F3ED600CB71BA /* KSCrash.m in Sources */,
+				7E112A361E1F3ED600CB71BA /* KSCrashC.c in Sources */,
+				7E112A391E1F3ED600CB71BA /* KSDebug.c in Sources */,
+				7E112A3B1E1F3ED600CB71BA /* KSCrashSentry.c in Sources */,
+				7E112A3E1E1F3ED600CB71BA /* KSCrashSentry_CPPException.cpp in Sources */,
+				7E112A401E1F3ED600CB71BA /* KSCrashSentry_MachException.c in Sources */,
+				7E112A431E1F3ED600CB71BA /* KSCrashSentry_NSException.m in Sources */,
+				7E112A441E1F3ED600CB71BA /* KSCrashSentry_Signal.c in Sources */,
+				7E112A471E1F3ED600CB71BA /* KSThread.c in Sources */,
+				7E112A4B1E1F3ED600CB71BA /* KSCPU_Apple.c in Sources */,
+				7E112A4D1E1F3ED600CB71BA /* KSCPU_arm.c in Sources */,
+				7E112A4E1E1F3ED600CB71BA /* KSCPU_arm64.c in Sources */,
+				7E112A4F1E1F3ED600CB71BA /* KSCPU_x86_32.c in Sources */,
+				7E112A501E1F3ED600CB71BA /* KSCPU_x86_64.c in Sources */,
+				7E112A511E1F3ED600CB71BA /* KSSignalInfo.c in Sources */,
+				7E112A541E1F3ED600CB71BA /* KSCrashReport.c in Sources */,
+				7E112A561E1F3ED600CB71BA /* KSBacktrace.c in Sources */,
+				7E112A591E1F3ED600CB71BA /* KSDynamicLinker.c in Sources */,
+				7E112A5B1E1F3ED600CB71BA /* KSMach.c in Sources */,
+				7E112A5C1E1F3ED600CB71BA /* KSMach.h in Sources */,
 				7E339C931E14D929009527D7 /* ViewController.m in Sources */,
 				7E339C7D1E14D862009527D7 /* AppDelegate.m in Sources */,
-				7E339CC71E14FAB8009527D7 /* KSCPU_x86_32.c in Sources */,
-				7E339CDA1E15FC65009527D7 /* KSBacktrace.c in Sources */,
-				7E339CCB1E14FBD8009527D7 /* KSSignalInfo.c in Sources */,
-				7E339CA01E14EE4D009527D7 /* KSCrashC.c in Sources */,
 				7E339C941E14D929009527D7 /* Crasher.mm in Sources */,
-				7E339CC41E14FAB8009527D7 /* KSCPU_Apple.c in Sources */,
-				7E339CB71E14F223009527D7 /* KSDebug.c in Sources */,
-				7E339CBA1E14F5C7009527D7 /* KSThread.c in Sources */,
-				7E339CB31E14F1C9009527D7 /* KSCrashSentry_NSException.m in Sources */,
-				7E339CC61E14FAB8009527D7 /* KSCPU_arm64.c in Sources */,
-				7E339CC81E14FAB8009527D7 /* KSCPU_x86_64.c in Sources */,
-				7E339CE11E160184009527D7 /* KSMach.c in Sources */,
 				7E339CCF1E150086009527D7 /* ArchObj.m in Sources */,
-				7E339CDD1E160115009527D7 /* KSDynamicLinker.c in Sources */,
-				7E339CAF1E14F1C9009527D7 /* KSCrashSentry.c in Sources */,
-				7E339CC51E14FAB8009527D7 /* KSCPU_arm.c in Sources */,
-				7E339C981E14DDFB009527D7 /* KSCrash.m in Sources */,
-				7E339CB21E14F1C9009527D7 /* KSCrashSentry_MachException.c in Sources */,
-				7E339CB41E14F1C9009527D7 /* KSCrashSentry_Signal.c in Sources */,
 				7E339C7A1E14D862009527D7 /* main.m in Sources */,
-				7E339CD61E15FAAA009527D7 /* KSCrashReport.c in Sources */,
-				7E339CB01E14F1C9009527D7 /* KSCrashSentry_CPPException.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

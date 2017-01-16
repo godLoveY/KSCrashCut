@@ -460,4 +460,153 @@ void writeAllThreads(const KSCrashReportWriter* const writer,
     }
     vm_deallocate(thisTask, (vm_address_t)threads, sizeof(thread_t) * numThreads);
 }
+/*
+#pragma -mark DEFINE MACRO FOR DIFFERENT CPU ARCHITECTURE
+#if defined(__arm64__)
+#define DETAG_INSTRUCTION_ADDRESS(A) ((A) & ~(3UL))
+#define BS_THREAD_STATE_COUNT ARM_THREAD_STATE64_COUNT
+#define BS_THREAD_STATE ARM_THREAD_STATE64
+#define BS_FRAME_POINTER __fp
+#define BS_STACK_POINTER __sp
+#define BS_INSTRUCTION_ADDRESS __pc
+
+#elif defined(__arm__)
+#define DETAG_INSTRUCTION_ADDRESS(A) ((A) & ~(1UL))
+#define BS_THREAD_STATE_COUNT ARM_THREAD_STATE_COUNT
+#define BS_THREAD_STATE ARM_THREAD_STATE
+#define BS_FRAME_POINTER __r[7]
+#define BS_STACK_POINTER __sp
+#define BS_INSTRUCTION_ADDRESS __pc
+
+#elif defined(__x86_64__)
+#define DETAG_INSTRUCTION_ADDRESS(A) (A)
+#define BS_THREAD_STATE_COUNT x86_THREAD_STATE64_COUNT
+#define BS_THREAD_STATE x86_THREAD_STATE64
+#define BS_FRAME_POINTER __rbp
+#define BS_STACK_POINTER __rsp
+#define BS_INSTRUCTION_ADDRESS __rip
+
+#elif defined(__i386__)
+#define DETAG_INSTRUCTION_ADDRESS(A) (A)
+#define BS_THREAD_STATE_COUNT x86_THREAD_STATE32_COUNT
+#define BS_THREAD_STATE x86_THREAD_STATE32
+#define BS_FRAME_POINTER __ebp
+#define BS_STACK_POINTER __esp
+#define BS_INSTRUCTION_ADDRESS __eip
+
+#endif
+
+#define CALL_INSTRUCTION_FROM_RETURN_ADDRESS(A) (DETAG_INSTRUCTION_ADDRESS((A)) - 1)
+
+#if defined(__LP64__)
+#define TRACE_FMT         "%-4d%-31s 0x%016lx %s + %lu"
+#define POINTER_FMT       "0x%016lx"
+#define POINTER_SHORT_FMT "0x%lx"
+#define BS_NLIST struct nlist_64
+#else
+#define TRACE_FMT         "%-4d%-31s 0x%08lx %s + %lu"
+#define POINTER_FMT       "0x%08lx"
+#define POINTER_SHORT_FMT "0x%lx"
+#define BS_NLIST struct nlist
+#endif
+
+typedef struct BSStackFrameEntry{
+    const struct BSStackFrameEntry *const previous;
+    const uintptr_t return_address;
+} BSStackFrameEntry;
+bool bs_fillThreadStateIntoMachineContext(thread_t thread, _STRUCT_MCONTEXT *machineContext) {
+    mach_msg_type_number_t state_count = BS_THREAD_STATE_COUNT;
+    kern_return_t kr = thread_get_state(thread, BS_THREAD_STATE, (thread_state_t)&machineContext->__ss, &state_count);
+    return (kr == KERN_SUCCESS);
+}
+uintptr_t bs_mach_instructionAddress(mcontext_t const machineContext){
+    return machineContext->__ss.BS_INSTRUCTION_ADDRESS;
+}
+uintptr_t bs_mach_linkRegister(mcontext_t const machineContext){
+#if defined(__i386__) || defined(__x86_64__)
+    return 0;
+#else
+    return machineContext->__ss.__lr;
+#endif
+}
+uintptr_t bs_mach_framePointer(mcontext_t const machineContext){
+    return machineContext->__ss.BS_FRAME_POINTER;
+}
+kern_return_t bs_mach_copyMem(const void *const src, void *const dst, const size_t numBytes){
+    vm_size_t bytesCopied = 0;
+    return vm_read_overwrite(mach_task_self(), (vm_address_t)src, (vm_size_t)numBytes, (vm_address_t)dst, &bytesCopied);
+}
+ */
+void printCallStack(thread_t thread)
+{
+    STRUCT_MCONTEXT_L machineContextBuffer;
+    uintptr_t backtraceBuffer[kMaxBacktraceDepth];
+    int backtraceLength = sizeof(backtraceBuffer) / sizeof(*backtraceBuffer);
+    int skippedEntries = 0;
+    fetchMachineState(thread, &machineContextBuffer);
+    
+    
+    int actualSkippedEntries = 0;
+    int actualLength = ksbt_backtraceLength(&machineContextBuffer);
+    if(actualLength >= kStackOverflowThreshold)
+    {
+        actualSkippedEntries = actualLength - backtraceLength;
+    }
+    
+    backtraceLength = ksbt_backtraceThreadState(&machineContextBuffer,
+                                                 backtraceBuffer,
+                                                 actualSkippedEntries,
+                                                 backtraceLength);
+    skippedEntries = actualSkippedEntries;
+    
+/*
+//    uintptr_t backtraceBuffer[50];
+//    int i = 0;
+//    
+//    _STRUCT_MCONTEXT machineContext;
+//    if(!bs_fillThreadStateIntoMachineContext(thread, &machineContext)) {
+//        return;
+//    }
+//    
+//    const uintptr_t instructionAddress = bs_mach_instructionAddress(&machineContext);
+//    backtraceBuffer[i] = instructionAddress;
+//    ++i;
+//    
+//    uintptr_t linkRegister = bs_mach_linkRegister(&machineContext);
+//    if (linkRegister) {
+//        backtraceBuffer[i] = linkRegister;
+//        i++;
+//    }
+//    
+//    if(instructionAddress == 0) {
+//        return ;
+//    }
+//    
+//    BSStackFrameEntry frame = {0};
+//    const uintptr_t framePtr = bs_mach_framePointer(&machineContext);
+//    if(framePtr == 0 ||
+//       bs_mach_copyMem((void *)framePtr, &frame, sizeof(frame)) != KERN_SUCCESS) {
+//        return ;
+//    }
+//    
+//    for(; i < 50; i++) {
+//        backtraceBuffer[i] = frame.return_address;
+//        if(backtraceBuffer[i] == 0 ||
+//           frame.previous == 0 ||
+//           bs_mach_copyMem(frame.previous, &frame, sizeof(frame)) != KERN_SUCCESS) {
+//            break;
+//        }
+//    }
+//    
+//
+//     int backtraceLength = i;
+ */
+    Dl_info symbolicated[backtraceLength];
+    ksbt_symbolicate(backtraceBuffer, symbolicated, backtraceLength, 0);
+    
+    for (int i = 0; i<backtraceLength; i++) {
+        Dl_info *info = &symbolicated[i];
+        printf("info->dli_fname = %s\n  info->dli_sname = %s\n-----",info->dli_fname,info->dli_sname);
+    }
+}
 

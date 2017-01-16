@@ -10,6 +10,10 @@
 //#import "TalkingData.h"
 #import <signal.h>
 #import "Crasher.h"
+#import "KSCrashReport.h"
+#import <mach/mach.h>
+#include <pthread.h>
+//#import "BSBacktraceLogger.h"
 
 @interface ViewController ()
 
@@ -18,7 +22,47 @@
 
 @end
 
+static mach_port_t main_thread_id;
 @implementation ViewController
+
++ (void)load {
+    main_thread_id = mach_thread_self();
+}
+thread_t bs_machThreadFromNSThread(NSThread *nsthread) {
+    char name[256];
+    mach_msg_type_number_t count;
+    thread_act_array_t list;
+    task_threads(mach_task_self(), &list, &count);
+    
+    NSTimeInterval currentTimestamp = [[NSDate date] timeIntervalSince1970];
+    NSString *originName = [nsthread name];
+    [nsthread setName:[NSString stringWithFormat:@"%f", currentTimestamp]];
+    
+    if ([nsthread isMainThread]) {
+        return (thread_t)main_thread_id;
+    }
+    
+    for (int i = 0; i < count; ++i) {
+        pthread_t pt = pthread_from_mach_thread_np(list[i]);
+        if ([nsthread isMainThread]) {
+            if (list[i] == main_thread_id) {
+                return list[i];
+            }
+        }
+        if (pt) {
+            name[0] = '\0';
+            pthread_getname_np(pt, name, sizeof name);
+            if (!strcmp(name, [nsthread name].UTF8String)) {
+                [nsthread setName:originName];
+                return list[i];
+            }
+        }
+    }
+    
+    [nsthread setName:originName];
+    return mach_thread_self();
+}
+
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -49,6 +93,11 @@
         [self.view addSubview:button];
     }
     self.crasher = [[Crasher alloc] init];
+    
+    //test runloop mode
+    UITableView *tabView = [[UITableView alloc]initWithFrame:CGRectMake(10, 620, 200, 95)];
+    tabView.backgroundColor = [UIColor redColor];
+    [self.view addSubview:tabView];
 }
 - (void) onCrash1:(__unused id) sender
 {
@@ -77,18 +126,38 @@
 {
 //    dispatch_queue_t gQueue =dispatch_get_global_queue (DISPATCH_QUEUE_PRIORITY_DEFAULT,0);
     dispatch_queue_t gQueue = dispatch_queue_create("com.lai.www", DISPATCH_QUEUE_CONCURRENT);
-    for (int i = 0; i<1000; i++) {
+    for (int i = 0; i<1; i++) {
         dispatch_async(gQueue, ^{
             NSLog(@"thread = %@",[NSThread currentThread]);
-            [NSTimer scheduledTimerWithTimeInterval:10.0f target:self selector:@selector(timerAction) userInfo:nil repeats:YES];
+            [NSTimer scheduledTimerWithTimeInterval:2.0f target:self selector:@selector(timerAction) userInfo:nil repeats:YES];
            [[NSRunLoop currentRunLoop] run];
         });
     }
+    
+//    [NSTimer scheduledTimerWithTimeInterval:2.0f target:self selector:@selector(timerAction) userInfo:nil repeats:YES];
 }
+- (void)onCrash5:(id)sender
+{
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^{
+        printCallStack(bs_machThreadFromNSThread([NSThread currentThread]));
+//        BSLOG_MAIN;
+    });
+    [self foo];
+}
+
 - (void)timerAction
 {
 //    NSLog(@"time_thread = %@",[NSThread currentThread]);
-    NSLog(@"-");
+    NSLog(@"---");
+}
+- (void)foo {
+    [self bar];
+}
+
+- (void)bar {
+    while (true) {
+        ;
+    }
 }
 - (void)buttonAction:(UIButton*)bt
 {
@@ -101,7 +170,7 @@
             func(_crasher, select);
         }
     }else{
-        [self onCrash4:bt];
+//        [self onCrash4:bt];
     }
 }
 
