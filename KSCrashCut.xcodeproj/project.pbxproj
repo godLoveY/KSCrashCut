@@ -27,6 +27,7 @@
 		7E112A591E1F3ED600CB71BA /* KSDynamicLinker.c in Sources */ = {isa = PBXBuildFile; fileRef = 7E339CDB1E160115009527D7 /* KSDynamicLinker.c */; };
 		7E112A5B1E1F3ED600CB71BA /* KSMach.c in Sources */ = {isa = PBXBuildFile; fileRef = 7E339CDE1E160184009527D7 /* KSMach.c */; };
 		7E112A5C1E1F3ED600CB71BA /* KSMach.h in Sources */ = {isa = PBXBuildFile; fileRef = 7E339CDF1E160184009527D7 /* KSMach.h */; };
+		7E149E421E2EFE4F005FA318 /* fishhook.c in Sources */ = {isa = PBXBuildFile; fileRef = 7E149E401E2EFE4F005FA318 /* fishhook.c */; };
 		7E339C7A1E14D862009527D7 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 7E339C791E14D862009527D7 /* main.m */; };
 		7E339C7D1E14D862009527D7 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 7E339C7C1E14D862009527D7 /* AppDelegate.m */; };
 		7E339C831E14D862009527D7 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7E339C811E14D862009527D7 /* Main.storyboard */; };
@@ -38,6 +39,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		7E149E401E2EFE4F005FA318 /* fishhook.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = fishhook.c; sourceTree = "<group>"; };
+		7E149E411E2EFE4F005FA318 /* fishhook.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = fishhook.h; sourceTree = "<group>"; };
 		7E339C751E14D862009527D7 /* KSCrashCut.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = KSCrashCut.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		7E339C791E14D862009527D7 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		7E339C7B1E14D862009527D7 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -160,6 +163,8 @@
 			children = (
 				7E339C961E14DDFB009527D7 /* KSCrash.h */,
 				7E339C971E14DDFB009527D7 /* KSCrash.m */,
+				7E149E401E2EFE4F005FA318 /* fishhook.c */,
+				7E149E411E2EFE4F005FA318 /* fishhook.h */,
 				7E339C9B1E14EB97009527D7 /* KSCrashType.h */,
 				7E339C9D1E14EE4D009527D7 /* KSCrashC.c */,
 				7E339C9E1E14EE4D009527D7 /* KSCrashC.h */,
@@ -305,6 +310,7 @@
 				7E112A4B1E1F3ED600CB71BA /* KSCPU_Apple.c in Sources */,
 				7E112A4D1E1F3ED600CB71BA /* KSCPU_arm.c in Sources */,
 				7E112A4E1E1F3ED600CB71BA /* KSCPU_arm64.c in Sources */,
+				7E149E421E2EFE4F005FA318 /* fishhook.c in Sources */,
 				7E112A4F1E1F3ED600CB71BA /* KSCPU_x86_32.c in Sources */,
 				7E112A501E1F3ED600CB71BA /* KSCPU_x86_64.c in Sources */,
 				7E112A511E1F3ED600CB71BA /* KSSignalInfo.c in Sources */,

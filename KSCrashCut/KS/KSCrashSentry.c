@@ -103,6 +103,20 @@ static bool g_threads_are_running = true;
 #pragma mark - API -
 // ============================================================================
 
+void reInstsallMach()
+{
+    if (g_context==NULL) {
+        //不需要 抢占，因为还没有安装
+        return;
+    }
+    if(ksdebug_isBeingTraced()){
+        
+    }else{
+        
+        machReinstall();
+    }
+}
+
 KSCrashType kscrashsentry_installWithContext(KSCrash_SentryContext* context,
                                              KSCrashType crashTypes,
                                              void (*onCrash)(void))

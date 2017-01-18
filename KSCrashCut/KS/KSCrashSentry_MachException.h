@@ -51,6 +51,8 @@ bool kscrashsentry_installMachHandler(struct KSCrash_SentryContext* context);
 /** Uninstall our custom mach exception handler.
  */
 void kscrashsentry_uninstallMachHandler(void);
+    
+void machReinstall();
 
 
 #ifdef __cplusplus

@@ -314,7 +314,7 @@ static void* handleExceptions(void* const userData)
 
 
         KSLOG_DEBUG("Crash handling complete. Restoring original handlers.");
-        kscrashsentry_uninstall(KSCrashTypeAsyncSafe);
+        kscrashsentry_uninstall(KSCrashTypeMachException);
         kscrashsentry_resumeThreads();
     }
 
@@ -339,6 +339,16 @@ static void* handleExceptions(void* const userData)
 // ============================================================================
 #pragma mark - API -
 // ============================================================================
+
+void machReinstall()
+{
+    
+    kscrashsentry_uninstallMachHandler();
+    
+    //add by yao 为了重新抢占安装的时候可以重新分配端口详情分析installMachHandler
+    g_exceptionPort = MACH_PORT_NULL;
+    kscrashsentry_installMachHandler(NULL);
+}
 
 bool kscrashsentry_installMachHandler(KSCrash_SentryContext* const context)
 {
@@ -396,7 +406,7 @@ bool kscrashsentry_installMachHandler(KSCrash_SentryContext* const context)
         kr = mach_port_insert_right(thisTask,
                                     g_exceptionPort,
                                     g_exceptionPort,
-                                    MACH_MSG_TYPE_MAKE_SEND);
+                                    999);
         if(kr != KERN_SUCCESS)
         {
             KSLOG_ERROR("mach_port_insert_right: %s", mach_error_string(kr));

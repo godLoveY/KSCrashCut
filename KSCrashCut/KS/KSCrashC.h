@@ -15,6 +15,8 @@ KSCrashType kscrash_install(const char* appName, const char* const installPath);
 KSCrashType kscrash_setHandlingCrashTypes(KSCrashType crashTypes);
 
 void kscrash_setCrashNotifyCallback(const KSReportWriteCallback onCrashNotify);
+    
+    void ks_reinstsallMach();
 
 #ifdef __cplusplus
 }

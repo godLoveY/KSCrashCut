@@ -84,6 +84,12 @@ static KSCrash_SentryContext* g_context;
 static void handleSignal(int sigNum, siginfo_t* signalInfo, void* userContext)
 {
     KSLOG_DEBUG("Trapped signal %d", sigNum);
+    if (g_context->crashType==KSCrashTypeMachException) {
+        //mach 已经处理过了
+        kscrashsentry_uninstall(KSCrashTypeAsyncSafe);
+        raise(sigNum);
+        return;
+    }
     if(g_installed)
     {
         bool wasHandlingCrash = g_context->handlingCrash;

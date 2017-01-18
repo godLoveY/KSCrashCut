@@ -95,9 +95,9 @@ thread_t bs_machThreadFromNSThread(NSThread *nsthread) {
     self.crasher = [[Crasher alloc] init];
     
     //test runloop mode
-    UITableView *tabView = [[UITableView alloc]initWithFrame:CGRectMake(10, 620, 200, 95)];
-    tabView.backgroundColor = [UIColor redColor];
-    [self.view addSubview:tabView];
+//    UITableView *tabView = [[UITableView alloc]initWithFrame:CGRectMake(10, 620, 200, 95)];
+//    tabView.backgroundColor = [UIColor redColor];
+//    [self.view addSubview:tabView];
 }
 - (void) onCrash1:(__unused id) sender
 {

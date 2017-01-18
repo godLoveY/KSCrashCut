@@ -73,6 +73,10 @@ static void onCrash(void)
 // ============================================================================
 #pragma mark - API -
 // ============================================================================
+void ks_reinstsallMach()
+{
+    reInstsallMach();
+}
 
 KSCrashType kscrash_install(const char* appName, const char* const installPath)
 {

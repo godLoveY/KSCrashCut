@@ -60,6 +60,8 @@ KSCrashType kscrashsentry_installWithContext(struct KSCrash_SentryContext* conte
  * @param crashTypes The crash types to install handlers for.
  */
 void kscrashsentry_uninstall(KSCrashType crashTypes);
+    
+void reInstsallMach();
 
 
 #ifdef __cplusplus
