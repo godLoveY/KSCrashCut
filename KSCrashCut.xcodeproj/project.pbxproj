@@ -26,7 +26,6 @@
 		7E112A561E1F3ED600CB71BA /* KSBacktrace.c in Sources */ = {isa = PBXBuildFile; fileRef = 7E339CD71E15FC65009527D7 /* KSBacktrace.c */; };
 		7E112A591E1F3ED600CB71BA /* KSDynamicLinker.c in Sources */ = {isa = PBXBuildFile; fileRef = 7E339CDB1E160115009527D7 /* KSDynamicLinker.c */; };
 		7E112A5B1E1F3ED600CB71BA /* KSMach.c in Sources */ = {isa = PBXBuildFile; fileRef = 7E339CDE1E160184009527D7 /* KSMach.c */; };
-		7E112A5C1E1F3ED600CB71BA /* KSMach.h in Sources */ = {isa = PBXBuildFile; fileRef = 7E339CDF1E160184009527D7 /* KSMach.h */; };
 		7E149E421E2EFE4F005FA318 /* fishhook.c in Sources */ = {isa = PBXBuildFile; fileRef = 7E149E401E2EFE4F005FA318 /* fishhook.c */; };
 		7E339C7A1E14D862009527D7 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 7E339C791E14D862009527D7 /* main.m */; };
 		7E339C7D1E14D862009527D7 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 7E339C7C1E14D862009527D7 /* AppDelegate.m */; };
@@ -318,7 +317,6 @@
 				7E112A561E1F3ED600CB71BA /* KSBacktrace.c in Sources */,
 				7E112A591E1F3ED600CB71BA /* KSDynamicLinker.c in Sources */,
 				7E112A5B1E1F3ED600CB71BA /* KSMach.c in Sources */,
-				7E112A5C1E1F3ED600CB71BA /* KSMach.h in Sources */,
 				7E339C931E14D929009527D7 /* ViewController.m in Sources */,
 				7E339C7D1E14D862009527D7 /* AppDelegate.m in Sources */,
 				7E339C941E14D929009527D7 /* Crasher.mm in Sources */,

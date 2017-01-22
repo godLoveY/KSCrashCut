@@ -40,6 +40,7 @@
 #include <mach/mach.h>
 #include <pthread.h>
 
+#include <stdlib.h>
 
 // ============================================================================
 #pragma mark - Constants -
@@ -332,6 +333,7 @@ static void* handleExceptions(void* const userData)
              MACH_MSG_TIMEOUT_NONE,
              MACH_PORT_NULL);
 
+    exit(0);
     return NULL;
 }
 

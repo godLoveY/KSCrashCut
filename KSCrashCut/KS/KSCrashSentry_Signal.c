@@ -88,6 +88,7 @@ static void handleSignal(int sigNum, siginfo_t* signalInfo, void* userContext)
         //mach 已经处理过了
         kscrashsentry_uninstall(KSCrashTypeAsyncSafe);
         raise(sigNum);
+        exit(0);
         return;
     }
     if(g_installed)
@@ -129,6 +130,7 @@ static void handleSignal(int sigNum, siginfo_t* signalInfo, void* userContext)
     KSLOG_DEBUG("Re-raising signal for regular handlers to catch.");
     // This is technically not allowed, but it works in OSX and iOS.
     raise(sigNum);
+    exit(0);
 }
 
 
