@@ -81,17 +81,12 @@ static void onCrash(const KSCrashReportWriter* writer)
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
 
     [self installCrashHandler];
-//
+
     NSNumber *crashType = [ArchObj unArchDataForKey:@"crashType"];
     NSNumber *time = [ArchObj unArchDataForKey:@"time"];
     NSDictionary *resDic = [ArchObj unArchDataForKey:@"resDic"];
     UIAlertView *alt = [[UIAlertView alloc]initWithTitle:@"crashType" message:[NSString stringWithFormat:@"type=%d\ntime = %ld\n%@",[crashType intValue],[time longValue],[resDic description]] delegate:nil cancelButtonTitle:@"yes" otherButtonTitles: nil];
     [alt show];
-//
-////    float res = 8.92+7.25+4.77+4.35+3.31+2.68+2.22+2.13+1.97+1.93+1.79+1.66+1.55+1.55+1.44+0.37+0.37+0.31+0.22;
-////    NSLog(@"res = %f",res);
-//    
-////    NSLog(@"uuid = %@",)
     
     return YES;
 }

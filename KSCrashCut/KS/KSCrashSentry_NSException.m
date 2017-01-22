@@ -105,7 +105,9 @@ static void handleException(NSException* exception)
 
         KSLOG_DEBUG2(@"Crash handling complete. Restoring original handlers.");
         kscrashsentry_uninstall(KSCrashTypeAll);
-
+        
+        kscrashsentry_resumeThreads();
+        
         if (g_previousUncaughtExceptionHandler != NULL)
         {
             KSLOG_DEBUG2(@"Calling original exception handler.");
