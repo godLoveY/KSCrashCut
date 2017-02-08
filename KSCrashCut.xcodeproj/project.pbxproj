@@ -35,6 +35,8 @@
 		7E339C931E14D929009527D7 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7E339C901E14D929009527D7 /* ViewController.m */; };
 		7E339C941E14D929009527D7 /* Crasher.mm in Sources */ = {isa = PBXBuildFile; fileRef = 7E339C921E14D929009527D7 /* Crasher.mm */; };
 		7E339CCF1E150086009527D7 /* ArchObj.m in Sources */ = {isa = PBXBuildFile; fileRef = 7E339CCE1E150086009527D7 /* ArchObj.m */; };
+		7E843D851E49CBE1004C4D12 /* PMainThreadWatcher.m in Sources */ = {isa = PBXBuildFile; fileRef = 7E843D841E49CBE1004C4D12 /* PMainThreadWatcher.m */; };
+		7EBA6E2E1E49B6630079F9F3 /* SeMonitorController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7EBA6E2D1E49B6630079F9F3 /* SeMonitorController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -98,6 +100,10 @@
 		7E339CDE1E160184009527D7 /* KSMach.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = KSMach.c; sourceTree = "<group>"; };
 		7E339CDF1E160184009527D7 /* KSMach.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KSMach.h; sourceTree = "<group>"; };
 		7E339CE01E160184009527D7 /* KSMachApple.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KSMachApple.h; sourceTree = "<group>"; };
+		7E843D831E49CBE1004C4D12 /* PMainThreadWatcher.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PMainThreadWatcher.h; sourceTree = "<group>"; };
+		7E843D841E49CBE1004C4D12 /* PMainThreadWatcher.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PMainThreadWatcher.m; sourceTree = "<group>"; };
+		7EBA6E2C1E49B6630079F9F3 /* SeMonitorController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SeMonitorController.h; sourceTree = "<group>"; };
+		7EBA6E2D1E49B6630079F9F3 /* SeMonitorController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SeMonitorController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -133,8 +139,10 @@
 			children = (
 				7E339C951E14DDEE009527D7 /* KS */,
 				7E339CCC1E15003D009527D7 /* myAdd */,
-				7E339C7B1E14D862009527D7 /* AppDelegate.h */,
+				7EBA6E2B1E49B64A0079F9F3 /* SeMonitorController */,
+				7E843D821E49CBE1004C4D12 /* signal */,
 				7E339C7C1E14D862009527D7 /* AppDelegate.m */,
+				7E339C7B1E14D862009527D7 /* AppDelegate.h */,
 				7E339C8F1E14D929009527D7 /* ViewController.h */,
 				7E339C901E14D929009527D7 /* ViewController.m */,
 				7E339C911E14D929009527D7 /* Crasher.h */,
@@ -225,6 +233,24 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		7E843D821E49CBE1004C4D12 /* signal */ = {
+			isa = PBXGroup;
+			children = (
+				7E843D831E49CBE1004C4D12 /* PMainThreadWatcher.h */,
+				7E843D841E49CBE1004C4D12 /* PMainThreadWatcher.m */,
+			);
+			path = signal;
+			sourceTree = "<group>";
+		};
+		7EBA6E2B1E49B64A0079F9F3 /* SeMonitorController */ = {
+			isa = PBXGroup;
+			children = (
+				7EBA6E2C1E49B6630079F9F3 /* SeMonitorController.h */,
+				7EBA6E2D1E49B6630079F9F3 /* SeMonitorController.m */,
+			);
+			path = SeMonitorController;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -304,6 +330,7 @@
 				7E112A3E1E1F3ED600CB71BA /* KSCrashSentry_CPPException.cpp in Sources */,
 				7E112A401E1F3ED600CB71BA /* KSCrashSentry_MachException.c in Sources */,
 				7E112A431E1F3ED600CB71BA /* KSCrashSentry_NSException.m in Sources */,
+				7E843D851E49CBE1004C4D12 /* PMainThreadWatcher.m in Sources */,
 				7E112A441E1F3ED600CB71BA /* KSCrashSentry_Signal.c in Sources */,
 				7E112A471E1F3ED600CB71BA /* KSThread.c in Sources */,
 				7E112A4B1E1F3ED600CB71BA /* KSCPU_Apple.c in Sources */,
@@ -321,6 +348,7 @@
 				7E339C7D1E14D862009527D7 /* AppDelegate.m in Sources */,
 				7E339C941E14D929009527D7 /* Crasher.mm in Sources */,
 				7E339CCF1E150086009527D7 /* ArchObj.m in Sources */,
+				7EBA6E2E1E49B6630079F9F3 /* SeMonitorController.m in Sources */,
 				7E339C7A1E14D862009527D7 /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

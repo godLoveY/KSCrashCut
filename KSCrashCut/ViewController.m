@@ -28,7 +28,7 @@ static mach_port_t main_thread_id;
 + (void)load {
     main_thread_id = mach_thread_self();
 }
-thread_t bs_machThreadFromNSThread(NSThread *nsthread) {
+thread_t bs_machThreadFromNSThread2(NSThread *nsthread) {
     char name[256];
     mach_msg_type_number_t count;
     thread_act_array_t list;
@@ -139,10 +139,30 @@ thread_t bs_machThreadFromNSThread(NSThread *nsthread) {
 - (void)onCrash5:(id)sender
 {
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^{
-        printCallStack(bs_machThreadFromNSThread([NSThread currentThread]));
+        printCallStack(bs_machThreadFromNSThread2([NSThread mainThread]));
 //        BSLOG_MAIN;
+        NSLog(@"okokokoko");
     });
-    [self foo];
+//    [self foo];
+}
+
+- (void)onCrash6:(id)sender
+{
+    unsigned long long logCount = 10000;
+    NSLog(@"onCrash6");
+    for (int i = 0; i < logCount; i ++) {
+//        NSLog(@"");
+        int a;
+        a++;
+        for (int i = 0; i < logCount; i ++) {
+            if (a>1000) {
+                a = 1;
+            }else {
+                a = a*12.34/22.1234;
+            }
+        }
+    }
+    NSLog(@"onCrash6 end");
 }
 
 - (void)timerAction
@@ -170,7 +190,7 @@ thread_t bs_machThreadFromNSThread(NSThread *nsthread) {
             func(_crasher, select);
         }
     }else{
-//        [self onCrash4:bt];
+        [self onCrash6:bt];
     }
 }
 

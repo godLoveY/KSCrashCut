@@ -230,15 +230,17 @@ void ksbt_symbolicate(const uintptr_t* const backtraceBuffer,
                       const int skippedEntries)
 {
     int i = 0;
-
+    
     if(!skippedEntries && i < numEntries)
     {
         ksdl_dladdr(backtraceBuffer[i], &symbolsBuffer[i]);
+//        dladdr((void*)backtraceBuffer[i], &symbolsBuffer[i]);
         i++;
     }
 
     for(; i < numEntries; i++)
     {
         ksdl_dladdr(CALL_INSTRUCTION_FROM_RETURN_ADDRESS(backtraceBuffer[i]), &symbolsBuffer[i]);
+//        dladdr((void*)CALL_INSTRUCTION_FROM_RETURN_ADDRESS(backtraceBuffer[i]), &symbolsBuffer[i]);
     }
 }
