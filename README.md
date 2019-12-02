@@ -4,11 +4,7 @@ weex compile ./src/foo.vue ./js -w
 
 http://proxy.paic.com.cn/proxyforwebx.pac
 
-SVN新地址：svn://10.20.13.219/SkyEyeDoc
-账户：大写UM
-密码：123456
 
-员工编号：E00010836783
 1，class-dump -H ./SysSecInfo.app -o ./headFile
 2，svn ci '05SDK/iOS集成SDK 文档1103/ios_sdk_开发集成说明1103.html' -m "集成CIO需求"
 3，svn co svn://10.20.8.33/SkyEyeDoc
