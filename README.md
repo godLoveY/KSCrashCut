@@ -72,6 +72,7 @@ xcrun atos -o ./KSCrashCut -arch arm64 -l 0x1000a4000 0x1000aeedc
 ///Users/yaoderen131/Library/Developer/Xcode/iOS DeviceSupport/10.0.2 (14A456)/Symbols/System/Library/Frameworks/UIKit.framework
 
  atos -o ./UIKit -arch arm64 -l 0x18c857000 0x18c89bd30
+ dwarfdump --uuid ./Flutter 
 
 系统库的解压（教程地址：https://gold.xitu.io/entry/57e0eb1dd203090069f55b55）
 步骤：	1，下载https://opensource.apple.com/tarballs/dyld/ 下载360.22压缩包
